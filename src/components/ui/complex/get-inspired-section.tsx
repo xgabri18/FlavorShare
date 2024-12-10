@@ -18,6 +18,7 @@ export const GetInspiredSection = async () => {
 				{data.map(recipe => (
 					<RecipeTile
 						key={recipe.id}
+						id={recipe.id}
 						title={recipe.name}
 						image={recipe.photo_url}
 						rating={recipe.rating ?? 0}
