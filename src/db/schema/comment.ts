@@ -6,7 +6,7 @@ import { users } from "./user";
 export const comments = sqliteTable("comments", {
   id: integer("id").primaryKey().notNull(),
   recipe_id: integer("recipe_id").notNull(),
-  user_id: integer("user_id").notNull(),
+  user_id: text("user_id").notNull(),
   content: text("content").notNull(),
   date: text("date").notNull(),
 });
