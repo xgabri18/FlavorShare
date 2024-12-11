@@ -44,4 +44,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 ## migrations
 `npx drizzle-kit generate`
 
-`turso db shell my-test-db`
+`turso db shell flavorshare`
