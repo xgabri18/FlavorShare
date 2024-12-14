@@ -1,7 +1,9 @@
-import { X } from "lucide-react";
-import { useFormContext, useFieldArray } from "react-hook-form";
-import { Button } from "../ui/button";
-import { FormInput } from "./form-input";
+import { X } from 'lucide-react';
+import { useFormContext, useFieldArray } from 'react-hook-form';
+
+import { Button } from '../ui/button';
+
+import { FormInput } from './form-input';
 
 export const IngredientSelect = () => {
 	const { register } = useFormContext();
