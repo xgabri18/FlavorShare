@@ -1,5 +1,7 @@
 'use client';
 
+import { toast } from 'sonner';
+
 import { UploadDropzone } from './uploadthing';
 
 type UTDProps = {
@@ -9,9 +11,10 @@ type UTDProps = {
 export const UploadThingDropzone = ({ setImageUrl }: UTDProps) => (
 	<div className="w-1/3 p-5">
 		<UploadDropzone
+			className="h-80"
 			endpoint={routeRegistry => routeRegistry.imageUploader}
 			onUploadAborted={() => {
-				alert('Upload Aborted');
+				toast.error('Upload Aborted');
 			}}
 			onClientUploadComplete={res => {
 				console.log(`onClientUploadComplete`, res);
@@ -19,6 +22,7 @@ export const UploadThingDropzone = ({ setImageUrl }: UTDProps) => (
 					throw new Error('result length after image upload should be 1');
 				}
 				setImageUrl(res[0].url);
+				toast.success('Image uploaded.');
 			}}
 			onUploadBegin={() => {
 				console.log('upload begin');

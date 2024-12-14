@@ -1,10 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import {
-	useForm,
-	FormProvider,
-} from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
@@ -12,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { useCreateRecipeMutation } from '@/queries/create-recipe';
 
 import { Button } from '../ui/button';
+import RecipeImage from '../ui/recipe-image';
 
 import { FormInput } from './form-input';
 import { type RecipeForm, recipeFormSchema } from './recipe-form-schema';
@@ -50,12 +48,26 @@ const DynamicForm = () => {
 		);
 	};
 
+	const deleteImage = () => {
+		setImageUrl(null);
+	};
+
 	return (
 		<FormProvider {...form}>
 			<form className="w-full" onSubmit={form.handleSubmit(onSubmit)}>
 				<h2 className="p-5 text-3xl">Add recipe</h2>
 				<div className="flex w-full">
-					<UploadThingDropzone setImageUrl={setImageUrl} />
+					{imageUrl === null ? (
+						<UploadThingDropzone setImageUrl={setImageUrl} />
+					) : (
+						<RecipeImage
+							setImageUrlNull={deleteImage}
+							src={imageUrl}
+							alt="Recipe Image"
+							width={500}
+							height={500}
+						/>
+					)}
 					<div className="w-1/3 p-5">
 						<FormInput className="my-2" label="Name" name="name" />
 						<FormInput
