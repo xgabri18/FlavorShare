@@ -11,6 +11,7 @@ export const recipes = sqliteTable("recipes", {
   name: text("name").notNull(),
   user_id: text("user_id").notNull(),
   description: text("description").notNull(),
+  steps: text("steps").notNull(),
   preparation_time: integer("preparation_time").notNull(),
   rating: real("rating"),
   visibility: text("visibility").notNull(),
