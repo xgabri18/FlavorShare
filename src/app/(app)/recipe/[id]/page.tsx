@@ -8,6 +8,7 @@ import { db } from '@/db';
 import { recipes } from '@/db/schema/recipe';
 import { eq } from 'drizzle-orm';
 import { users } from '@/db/schema/user';
+import { InteractableRating } from '@/components/ui/rating';
 
 type RecipePageProps = {
 	params: {
@@ -24,13 +25,13 @@ const Page = async ({ params }: RecipePageProps) => {
 		.limit(1);
 	const singleRecipe = recipe[0];
 
-	// const author = await db
-	// 	.select()
-	// 	.from(users)
-	// 	.where(eq(users.id, Number(singleRecipe.user_id)))
-	// 	.limit(1);
+	const author = await db
+		.select()
+		.from(users)
+		.where(eq(users.id, singleRecipe.user_id))
+		.limit(1);
 
-	// const singleAuthor = author[0];
+	const singleAuthor = author[0];
 
 	return (
 		<div className="flex flex-col px-60 py-20">
@@ -51,7 +52,7 @@ const Page = async ({ params }: RecipePageProps) => {
 				</div>
 				<div className="flex flex-1 flex-col justify-start gap-3 bg-red-400">
 					<h1>{singleRecipe.name}</h1>
-					<span>Author name</span>
+					<span>{singleAuthor.name}</span>
 					<div className="flex gap-2">
 						<Clock />
 						<span>{singleRecipe.preparation_time}min</span>
@@ -68,12 +69,17 @@ const Page = async ({ params }: RecipePageProps) => {
 					<h2>Description</h2>
 					<span>{singleRecipe.description}</span>
 				</div>
+				<div>
+					<h2>Instructions</h2>
+					<span>{singleRecipe.description}</span>
+				</div>
 			</div>
 			<div className="flex flex-1 flex-col gap-2 bg-green-500">
 				<h2>Comments</h2>
 				<span>
 					Rating from material ui https://mui.com/material-ui/react-rating/
 				</span>
+				<InteractableRating />
 			</div>
 		</div>
 	);

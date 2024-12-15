@@ -15,7 +15,7 @@ export const RecipeTile = ({ id, image, title, rating }: RecipeTileProps) => (
 		href={`/recipe/${id}`}
 		className="flex transform flex-col gap-3 rounded-lg bg-black text-white shadow-black transition duration-300 hover:scale-105 hover:shadow-xl"
 	>
-		<div className="relative h-48">
+		<div className="relative h-48 w-48">
 			<Image
 				aria-hidden
 				src="/image.svg" //{image ?? '/image.svg'}
