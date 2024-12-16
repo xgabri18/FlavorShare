@@ -10,6 +10,6 @@ export type navigation = {
 export const navigationOptions: navigation[] = [
 	{ name: 'Home', icon: <Home size={20} />, path: '/' },
 	{ name: 'User', icon: <User size={20} />, path: '/user' },
-	{ name: 'Find', icon: <Search size={20} />, path: '/find' },
+	{ name: 'Find', icon: <Search size={20} />, path: '/filter' },
 	{ name: 'Add Recipe', icon: <PlusCircle size={20} />, path: '/add-recipe' }
 ];

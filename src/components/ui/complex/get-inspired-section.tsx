@@ -18,7 +18,7 @@ async function getTopRecipes() {
 		.map(row => row.rating)
 		.filter((rating): rating is number => rating !== null);
 	//const ratings = allRatings.map(row => row.rating);
-	const percentile95 = calculatePercentile(ratings, 0.95);
+	const percentile95 = calculatePercentile(ratings, 0.9);
 
 	// Step 2: Filter recipes above 95th percentile
 	const filteredRecipes = await db
