@@ -90,8 +90,8 @@ export const Filter = ({
 	};
 
 	return (
-		<div className="flex h-screen overflow-hidden">
-			<div className="fixed h-full bg-gray-100 p-4">
+		<div className="flex h-screen flex-col overflow-hidden lg:flex-row">
+			<div className="flex-shrink-0 bg-gray-100 p-4 lg:fixed lg:h-full lg:w-64 xl:w-80">
 				<FilterControls
 					categories={categories}
 					ingredients={ingredient}
@@ -107,7 +107,8 @@ export const Filter = ({
 					resetFilters={resetFilters}
 				/>
 			</div>
-			<div className="ml-80 w-3/4 overflow-y-auto p-4">
+
+			<div className="flex-1 overflow-y-auto p-4 lg:ml-80">
 				<RecipeList recipes={filteredRecipes} />
 			</div>
 		</div>

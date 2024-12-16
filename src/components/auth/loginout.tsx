@@ -8,10 +8,11 @@ const LogInOut = async () => {
 	const session = await auth();
 
 	return (
-		<div>
+		<div className="flex items-center gap-2 text-sm sm:text-base">
 			{session?.user ? (
 				<>
-					{session?.user?.name} | <LogoutButton />
+					<span className="hidden sm:inline">{session?.user?.name} |</span>
+					<LogoutButton />
 				</>
 			) : (
 				<LoginButton />
