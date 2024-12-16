@@ -16,9 +16,9 @@ import {
 } from '@/db/schema/favoriteRecipe';
 
 type RecipePageProps = {
-	params: {
+	params: Promise<{
 		id: string;
-	};
+	}>;
 };
 
 const getFavoriteRecipes = async (
