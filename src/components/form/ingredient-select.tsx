@@ -1,9 +1,10 @@
-import { X } from 'lucide-react';
+import { Plus, X } from 'lucide-react';
 import { useFormContext, useFieldArray } from 'react-hook-form';
 
 import { Button } from '../ui/button';
 
 import { FormInput } from './form-input';
+import { RedXButton } from '../ui/red-x-button';
 
 export const IngredientSelect = () => {
 	const { register } = useFormContext();
@@ -15,7 +16,7 @@ export const IngredientSelect = () => {
 
 	return (
 		<div>
-			<label htmlFor="ingredientsDiv" className="mr-2 flex pb-1">
+			<label htmlFor="ingredientsDiv" className="mr-2 flex pb-1 text-xl">
 				Ingredients
 			</label>
 			<div key="ingredientsDiv">
@@ -23,6 +24,7 @@ export const IngredientSelect = () => {
 					<div className="flex" key={ingredient.id}>
 						<div className="my-2 mr-2">
 							<FormInput
+								className='flex h-10 w-full rounded-xl bg-stone-400 px-3 py-2 text-lg placeholder:text-muted-foreground border-none'
 								label=""
 								{...register(`ingredients.${index}.name`)}
 								placeholder="Ingredient"
@@ -31,6 +33,7 @@ export const IngredientSelect = () => {
 
 						<div className="m-2">
 							<FormInput
+								className='flex h-10 w-full rounded-xl bg-stone-400 px-3 py-2 text-lg placeholder:text-muted-foreground border-none'
 								label=""
 								type="number"
 								{...register(`ingredients.${index}.amount`)}
@@ -40,30 +43,24 @@ export const IngredientSelect = () => {
 
 						<div className="m-2">
 							<FormInput
+								className='flex h-10 w-full rounded-xl bg-stone-400 px-3 py-2 text-lg placeholder:text-muted-foreground border-none'
 								label=""
 								{...register(`ingredients.${index}.unit`)}
 								placeholder="Unit"
 							/>
 						</div>
-
-						<Button
-							className="m-2"
-							variant="outline"
-							onClick={() => removeIngredient(index)}
-						>
-							<X />
-						</Button>
+						<RedXButton className='m-2' onClick={() => removeIngredient(index)} isLoading={false}/>
 					</div>
 				))}
 			</div>
 			<Button
-				className="my-2"
+				className="my-2 rounded-xl text-xl bg-stone-400 hover:bg-blue-700"
 				type="button"
-				variant="outline"
+				variant="default"
 				size="lg"
 				onClick={() => addIngredient({ name: '', amount: '', unit: '' })}
 			>
-				Add Ingredient
+				<Plus/>Add Ingredient
 			</Button>
 		</div>
 	);

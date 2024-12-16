@@ -9,7 +9,7 @@ type UTDProps = {
 };
 
 export const UploadThingDropzone = ({ setImageUrl }: UTDProps) => (
-	<div className="w-1/3 p-5">
+	<div className="w-full p-5">
 		<UploadDropzone
 			className="h-80"
 			endpoint={routeRegistry => routeRegistry.imageUploader}

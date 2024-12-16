@@ -18,7 +18,8 @@ export const recipeFormSchema = z.object({
 	preparation_time: z.number().nonnegative(),
 	visibility: visibilitySchema,
 	categories: z.array(categorySchema),
-	ingredients: z.array(ingredientSchema)
+	ingredients: z.array(ingredientSchema),
+	recipeSteps: z.string(),
 });
 
 export type Ingredient = z.infer<typeof ingredientSchema>;
