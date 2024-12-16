@@ -1,16 +1,15 @@
-'use client';
-
-import { useSession } from 'next-auth/react';
+'use server';
 
 import { LoginButton } from '@/components/auth/loginButton';
 import { LogoutButton } from '@/components/auth/logoutButton';
+import { auth } from '@/auth';
 
-const LogInOut = () => {
-	const { data: session, status } = useSession();
+const LogInOut = async () => {
+	const session = await auth();
 
 	return (
 		<div>
-			{status === 'authenticated' ? (
+			{session?.user ? (
 				<>
 					{session?.user?.name} | <LogoutButton />
 				</>

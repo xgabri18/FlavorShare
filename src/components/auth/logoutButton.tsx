@@ -10,7 +10,6 @@ export const LogoutButton = () => {
 	const onClick = async () => {
 		await signOutAction();
 		router.push('/');
-		router.refresh();
 	};
 
 	return <Button onClick={onClick}>Logout</Button>;
