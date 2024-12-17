@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { removeFavorite } from '@/components/ui/complex/favoriteButton/actions';
+import { removeFavorite } from '@/components/favoriteButton/actions';
 
 type removeProps = {
 	userId: string;
