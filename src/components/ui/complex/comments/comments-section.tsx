@@ -21,7 +21,9 @@ export const CommentSection = ({
 
 	return (
 		<div>
-			<span>{commentList.length} comments</span>
+			<span className="mr-2 flex justify-end">
+				{commentList.length} comments
+			</span>
 			<div className="space-y-4 border-t-2 border-t-gray-300 pt-2">
 				{commentList.map(comment => (
 					<div key={comment.id} className="flex items-start space-x-4">

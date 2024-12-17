@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction, useState } from 'react';
 
 import { JoinedUserComment, NewComment } from './types';
 import { addComment, fetchCommentsWithUser } from './actions';
+import { Button } from '../../button';
 
 export const AddCommentArea = ({
 	currentUserId,
@@ -19,7 +20,7 @@ export const AddCommentArea = ({
 	const handleAddComment = async () => {
 		if (newComment.trim() !== '') {
 			const newCommentObj: NewComment = {
-				recipe_id: recipeId, // Replace with the actual recipe ID
+				recipe_id: recipeId,
 				user_id: currentUserId,
 				content: newComment,
 				date: new Date().toISOString()
@@ -27,8 +28,7 @@ export const AddCommentArea = ({
 
 			await addComment(newCommentObj);
 
-			// Assuming the ID is auto-generated and you fetch the updated comments
-			const updatedComments = await fetchCommentsWithUser(recipeId); // Replace with actual recipe ID
+			const updatedComments = await fetchCommentsWithUser(recipeId);
 			setCommentList(updatedComments);
 			setNewComment('');
 		}
@@ -42,12 +42,13 @@ export const AddCommentArea = ({
 				placeholder="Add a comment..."
 				className="w-full rounded border p-2"
 			/>
-			<button
+			<Button
+				variant="default"
 				onClick={handleAddComment}
-				className="mt-2 rounded bg-blue-700 px-4 py-2 text-white hover:bg-blue-400"
+				className="text-white hover:bg-blue-400"
 			>
 				Add Comment
-			</button>
+			</Button>
 		</div>
 	);
 };

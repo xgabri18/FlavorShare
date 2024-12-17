@@ -32,8 +32,11 @@ export const GetInspiredSection = async () => {
 	const data = await getTopRecipes();
 
 	return (
-		<div className="flex border-t-2 border-t-gray-500 p-5">
-			<div className="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-3">
+		<div className="flex flex-col border-t-2 border-t-gray-500 p-5">
+			<h2 className="mb-5 flex flex-1 justify-center text-2xl font-semibold text-gray-700">
+				Today's picks
+			</h2>
+			<div className="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-5">
 				{data.map(recipe => (
 					<RecipeTile
 						key={recipe.id}
@@ -41,6 +44,7 @@ export const GetInspiredSection = async () => {
 						title={recipe.name}
 						image={recipe.photo_url}
 						rating={recipe.rating ?? 0}
+						preparationTime={recipe.preparation_time}
 					/>
 				))}
 			</div>
