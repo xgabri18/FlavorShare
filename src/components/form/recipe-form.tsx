@@ -81,7 +81,7 @@ const DynamicForm = ({...props}: DynamicFormProps) => {
 					back
 				</Button>
 				<h2 className="p-5 text-4xl">Add recipe</h2>
-				<div className="flex w-full">
+				<div className="flex-column w-full md:flex">
 					{imageUrl === null ? (
 						<div className='flex w-full ml-5'><UploadThingDropzone setImageUrl={setImageUrl} /></div>
 					) : (

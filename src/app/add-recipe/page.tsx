@@ -10,7 +10,7 @@ const Page = async () => {
 	}
 
 	return (
-		<main className="container w-4/5">
+		<main className="md:container md:w-4/5">
 			<div className="flex">
 				<DynamicForm userId={session?.user?.id} data={null} photoUrl={null} recipeId={null}/>
 			</div>

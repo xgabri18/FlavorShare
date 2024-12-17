@@ -28,7 +28,7 @@ const Page = async ({ params }: RecipePageProps) => {
     // console.log(recipe);
 
 	return (
-		<main className="container w-4/5">
+		<main className="md:w-4/5 md:container">
 			<div className="flex">
 				<DynamicForm userId={null} data={recipe} photoUrl={recipe.imageUrl} recipeId={recipe.id}/>
 			</div>
