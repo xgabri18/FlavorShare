@@ -8,9 +8,9 @@ import { eq } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
 
 type RecipePageProps = {
-	params: {
+	params: Promise<{
 		id: string;
-	};
+	}>;
 };
 
 const Page = async ({ params }: RecipePageProps) => {
