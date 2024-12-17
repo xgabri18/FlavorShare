@@ -11,7 +11,11 @@ type UTDProps = {
 export const UploadThingDropzone = ({ setImageUrl }: UTDProps) => (
 	<div className="w-full p-5">
 		<UploadDropzone
-			className="h-80"
+			appearance={{
+				button: 'bg-stone-400 flex w-26 p-4 text-xl rounded-xl text-gray-900 hover:bg-blue-600',
+				container: 'bg-stone-300 rounded-xl p-2'
+			}}
+			className="h-96"
 			endpoint={routeRegistry => routeRegistry.imageUploader}
 			onUploadAborted={() => {
 				toast.error('Upload Aborted');
