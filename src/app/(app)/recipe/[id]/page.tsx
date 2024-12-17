@@ -14,6 +14,7 @@ import {
 	type FavoriteRecipe,
 	favoriteRecipes
 } from '@/db/schema/favoriteRecipe';
+import { CommentsParent } from '@/components/ui/complex/comments/comments-parent-component';
 
 type RecipePageProps = {
 	params: Promise<{
@@ -118,6 +119,18 @@ const Page = async ({ params }: RecipePageProps) => {
 					recipeId={singleRecipe.id}
 				/>
 			)}
+			<CommentsParent
+				recipeId={Number(id)}
+				currentUser={
+					session === null || session.user === undefined || userId === undefined
+						? null
+						: {
+								name: session.user.name ?? '',
+								image: session.user.image ?? null,
+								id: userId
+							}
+				}
+			/>
 		</div>
 	);
 };
