@@ -1,22 +1,41 @@
 'use server';
 
 import Image from 'next/image';
-
 import { Clock, Star } from 'lucide-react';
+import { eq } from 'drizzle-orm';
 
 import { db } from '@/db';
 import { recipes } from '@/db/schema/recipe';
-import { eq } from 'drizzle-orm';
 import { users } from '@/db/schema/user';
 import { InteractableRating } from '@/components/ui/rating';
+import { auth } from '@/auth';
+import RemoveOrAddFavorite from '@/components/ui/complex/favoriteButton/remove-or-add-favorite';
+import {
+	type FavoriteRecipe,
+	favoriteRecipes
+} from '@/db/schema/favoriteRecipe';
 
 type RecipePageProps = {
-	params: {
+	params: Promise<{
 		id: string;
-	};
+	}>;
+};
+
+const getFavoriteRecipes = async (
+	userId: string | undefined
+): Promise<FavoriteRecipe[]> => {
+	if (userId) {
+		return db
+			.select()
+			.from(favoriteRecipes)
+			.where(eq(favoriteRecipes.user_id, userId));
+	} else {
+		return [];
+	}
 };
 
 const Page = async ({ params }: RecipePageProps) => {
+	const session = await auth();
 	const { id } = await params; // This is apparently required from Next 15 https://stackoverflow.com/questions/79143162/route-locale-used-params-locale-params-should-be-awaited-before-using
 	const recipe = await db
 		.select()
@@ -30,6 +49,17 @@ const Page = async ({ params }: RecipePageProps) => {
 		.from(users)
 		.where(eq(users.id, singleRecipe.user_id))
 		.limit(1);
+
+	const userId = session?.user?.id;
+
+	const favorRecipes = await getFavoriteRecipes(userId);
+
+	if (
+		singleRecipe.visibility === 'private' &&
+		userId !== singleRecipe.user_id
+	) {
+		return <div>This recipe is private</div>;
+	}
 
 	const singleAuthor = author[0];
 
@@ -81,6 +111,13 @@ const Page = async ({ params }: RecipePageProps) => {
 				</span>
 				<InteractableRating />
 			</div>
+			{userId && (
+				<RemoveOrAddFavorite
+					favoriteRecipes={favorRecipes}
+					userId={userId}
+					recipeId={singleRecipe.id}
+				/>
+			)}
 		</div>
 	);
 };

@@ -32,11 +32,22 @@ const Page = async () => {
 	);
 
 	return (
-		<div>
-			<h1>{userName}</h1>
-			<Accordion activeIndex={0}>
-				<AccordionTab header="Favorite Recipes">
-					<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+		<div className="p-4">
+			{/* User Name Header */}
+			<h1 className="text-center text-2xl font-bold text-gray-800">
+				{userName}
+			</h1>
+
+			{/* Accordion */}
+			<Accordion activeIndex={0} className="mt-6 w-full">
+				<AccordionTab
+					header={
+						<span className="block w-full border border-gray-300 bg-gray-200 px-4 py-2 text-lg font-semibold text-black shadow-md">
+							Favorite Recipes
+						</span>
+					}
+				>
+					<div className="grid grid-cols-1 gap-4 p-3 md:grid-cols-2 lg:grid-cols-3">
 						{favRecipes.map(recipe => (
 							<RecipeTile
 								key={recipe.id}
@@ -48,8 +59,15 @@ const Page = async () => {
 						))}
 					</div>
 				</AccordionTab>
-				<AccordionTab header="My Recipes">
-					<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+
+				<AccordionTab
+					header={
+						<span className="block w-full border border-gray-300 bg-gray-200 px-4 py-2 text-lg font-semibold text-black shadow-md">
+							My Recipes
+						</span>
+					}
+				>
+					<div className="grid grid-cols-1 gap-4 p-2 md:grid-cols-2 lg:grid-cols-3">
 						{userRecipes.map(recipe => (
 							<RecipeTile
 								key={recipe.id}
@@ -65,4 +83,5 @@ const Page = async () => {
 		</div>
 	);
 };
+
 export default Page;
