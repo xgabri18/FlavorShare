@@ -1,13 +1,15 @@
-import { sqliteTable, integer, text } from "drizzle-orm/sqlite-core";
-import {type InferSelectModel, relations} from "drizzle-orm";
-import { recipes } from "./recipe";
-export const categories = sqliteTable("categories", {
-  id: integer("id").primaryKey().notNull(),
-  name: text("name").notNull(),
+import { sqliteTable, integer, text } from 'drizzle-orm/sqlite-core';
+import { type InferSelectModel, relations } from 'drizzle-orm';
+
+import { recipes } from './recipe';
+
+export const categories = sqliteTable('categories', {
+	id: integer('id').primaryKey().notNull(),
+	name: text('name').notNull()
 });
 
 export const categoryRelations = relations(categories, ({ many }) => ({
-  recipes: many(recipes),  // One category can have many recipes
+	recipes: many(recipes) // One category can have many recipes
 }));
 
 export type Category = InferSelectModel<typeof categories>;
