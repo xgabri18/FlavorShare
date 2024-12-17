@@ -9,7 +9,7 @@ import { recipes } from '@/db/schema/recipe';
 import { users } from '@/db/schema/user';
 import { InteractableRating } from '@/components/ui/rating';
 import { auth } from '@/auth';
-import RemoveOrAddFavorite from '@/components/ui/complex/favoriteButton/remove-or-add-favorite';
+import RemoveOrAddFavorite from '@/components/favoriteButton/remove-or-add-favorite';
 import {
 	type FavoriteRecipe,
 	favoriteRecipes

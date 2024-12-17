@@ -1,3 +1,5 @@
+import { eq } from 'drizzle-orm';
+
 import { db } from '@/db';
 import { recipes } from '@/db/schema/recipe';
 import { ingredients } from '@/db/schema/ingredient';
@@ -7,7 +9,10 @@ import { usedIngredients } from '@/db/schema/usedIngredient';
 import { recipeCategories } from '@/db/schema/recipeCategory';
 
 const Page = async () => {
-	const allRecipes = await db.select().from(recipes);
+	const allRecipes = await db
+		.select()
+		.from(recipes)
+		.where(eq(recipes.visibility, 'public'));
 	const ingredientsInRecipes = await db.select().from(usedIngredients);
 	const categoryOfRecipes = await db.select().from(recipeCategories);
 	const allIngredients = await db.select().from(ingredients);

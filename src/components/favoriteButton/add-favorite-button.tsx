@@ -1,6 +1,6 @@
 'use client';
 import { Button } from '@/components/ui/button';
-import { addToFavorite } from '@/components/ui/complex/favoriteButton/actions';
+import { addToFavorite } from '@/components/favoriteButton/actions';
 
 type addProps = {
 	userId: string;

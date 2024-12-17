@@ -2,8 +2,8 @@
 import { useEffect, useState } from 'react';
 
 import { type FavoriteRecipe } from '@/db/schema/favoriteRecipe';
-import AddFavoriteButton from '@/components/ui/complex/favoriteButton/add-favorite-button';
-import RemoveFavoriteButton from '@/components/ui/complex/favoriteButton/remove-favorite-button';
+import AddFavoriteButton from '@/components/favoriteButton/add-favorite-button';
+import RemoveFavoriteButton from '@/components/favoriteButton/remove-favorite-button';
 
 type removeOrAddFavorite = {
 	favoriteRecipes: FavoriteRecipe[];
