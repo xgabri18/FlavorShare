@@ -1,11 +1,9 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
-
 import { signIn, signOut } from '@/auth';
 
 export const signInAction = async () => {
-	await signIn('github');
+	await signIn('github', {redirectTo: '/'});
 };
 
 export const signOutAction = async () => {

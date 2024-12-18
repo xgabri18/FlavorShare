@@ -24,7 +24,7 @@ const updateCategories = async (newCategories: {category: string}[], recipeId: n
         eq(recipeCategories.recipe_id, recipeId)
     );
     existingCategories.forEach(async (cat) => {
-        if (!newCategories.find(c => c.category === cat.name)) {
+        if (!newCategories.find(c => c.category.toLowerCase() === cat.name)) {
             await db.delete(recipeCategories).where(eq(recipeCategories.id, cat.recipeCategoryId));
             if ((await db.select().from(recipeCategories).where(eq(recipeCategories.category_id, cat.recipeCategoryId))).length === 0) {
                 await db.delete(dbCategories).where(eq(dbCategories.id, cat.categoryId));
@@ -32,7 +32,7 @@ const updateCategories = async (newCategories: {category: string}[], recipeId: n
         }
     });
     newCategories.forEach(async (c) => {
-        if (!existingCategories.find(cat => cat.name === c.category)) {
+        if (!existingCategories.find(cat => cat.name === c.category.toLowerCase())) {
             const newCategory = await GetOrCreateCategory(c);
             await db.insert(recipeCategories).values({recipe_id: recipeId, category_id: newCategory.id});
         }
@@ -53,7 +53,7 @@ const getExistingIngredients = async (recipeId: number) => {
 const updateIngredients = async (newIngredients: {name: string, amount: number, unit: string}[], recipeId: number) => {
     const existingIngredients = await getExistingIngredients(recipeId);
     existingIngredients.forEach(async (ingdnt) => {
-        const ingredient = newIngredients.find(i => i.name === ingdnt.name);
+        const ingredient = newIngredients.find(i => i.name.toLowerCase() === ingdnt.name);
         if (!ingredient) {
             await db.delete(usedIngredients).where(eq(usedIngredients.id, ingdnt.usedIngredientId));
             if ((await db.select().from(dbIngredients).where(eq(dbIngredients.id, ingdnt.ingredientId))).length === 0) {
@@ -71,7 +71,7 @@ const updateIngredients = async (newIngredients: {name: string, amount: number, 
     });
     const afterUpdateIngredients = await getExistingIngredients(recipeId);
     newIngredients.forEach(async (i) => {
-        if (!afterUpdateIngredients.find(ingdnt => ingdnt.name === i.name)) {
+        if (!afterUpdateIngredients.find(ingdnt => ingdnt.name === i.name.toLowerCase())) {
             const newIngredient = await GetOrCreateIngredient(i);
             await db.insert(usedIngredients).values({ingredient_id: newIngredient, recipe_id: recipeId, quantity: `${i.amount}|${i.unit}`});
         }
