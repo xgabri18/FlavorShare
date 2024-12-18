@@ -52,7 +52,7 @@ export const CommentArea = ({
 	return (
 		<div className="flex-1 rounded-lg bg-gray-100 p-4">
 			<div className="flex justify-between">
-				<div className="flex gap-2">
+				<div className="flex flex-col md:flex-row md:gap-2">
 					<h4 className="font-semibold">{commentData.userName}</h4>
 					<span className="content-center text-sm text-gray-400">
 						{timeAgo(commentData.date)}

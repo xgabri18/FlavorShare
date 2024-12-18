@@ -18,7 +18,11 @@ const DeleteRecipeButton = (props: deleteProps) => {
 	};
 
 	return (
-		<Button onClick={onClick} variant="destructive">
+		<Button
+			onClick={onClick}
+			variant="destructive"
+			className="w-24 rounded-md bg-stone-200 text-red-500 hover:text-red-700 lg:bg-red-600 lg:text-white lg:hover:bg-red-400 lg:hover:text-white"
+		>
 			Delete Recipe
 		</Button>
 	);

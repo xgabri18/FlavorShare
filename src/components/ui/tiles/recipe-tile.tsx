@@ -38,7 +38,7 @@ export const RecipeTile = ({
 				<Clock />
 				<span>{preparationTime}min</span>
 				<Star />
-				<span>{rating}</span>
+				<span>{rating.toPrecision(2)}</span>
 			</div>
 		</div>
 	</Link>
