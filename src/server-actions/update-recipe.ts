@@ -56,7 +56,13 @@ const updateIngredients = async (newIngredients: {name: string, amount: number, 
                 db.delete(ingredients).where(eq(ingredients.id, ingdnt.ingredientId));
             }
         } else {
-            await db.update(usedIngredients).set({quantity: `${ingredient.amount}|${ingredient.unit}`});
+            await db.update(
+                usedIngredients
+            ).set({
+                quantity: `${ingredient.amount}|${ingredient.unit}`
+            }).where(
+                eq(usedIngredients.id, ingdnt.usedIngredientId)
+            );
         }
     });
     newIngredients.forEach(async (i) => {
