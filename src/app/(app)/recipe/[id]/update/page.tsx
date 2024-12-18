@@ -1,11 +1,7 @@
 import { auth } from '@/auth';
 import DynamicForm from '@/components/form/recipe-form';
-import { recipeFormSchema } from '@/components/form/recipe-form-schema';
-import { db } from '@/db';
-import { recipes } from '@/db/schema/recipe';
 import getRecipeWithRelated from '@/server-actions/get-recipe-with-related';
-import { eq } from 'drizzle-orm';
-import { redirect } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 type RecipePageProps = {
 	params: Promise<{
@@ -23,7 +19,7 @@ const Page = async ({ params }: RecipePageProps) => {
     const recipe = await getRecipeWithRelated(Number(id), session.user.id);
     if (recipe === null)
     {
-        redirect('/');
+        return notFound();
     }
     // console.log(recipe);
 
