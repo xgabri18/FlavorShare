@@ -10,7 +10,7 @@ export const deleteRecipe = async (recipeId: number) => {
 		await db.delete(recipes).where(eq(recipes.id, recipeId));
 		revalidatePath(`/browse`);
 	} catch (error) {
-		console.error('Error inserting gift:', error);
-		throw new Error('Failed to create gift');
+		console.error('Error deleting gift:', error);
+		throw new Error('Failed to delete gift');
 	}
 };

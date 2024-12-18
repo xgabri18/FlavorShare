@@ -9,7 +9,7 @@ export const GetOrCreateIngredient = async (data: Ingredient) => {
 	const existing = await db
 		.select()
 		.from(ingredients)
-		.where(eq(ingredients.name, data.name));
+		.where(eq(ingredients.name, data.name.toLowerCase()));
 	if (existing.length === 1) {
 		return existing[0].id;
 	}

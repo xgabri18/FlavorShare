@@ -7,7 +7,7 @@ import { ArrowLeft } from 'lucide-react';
 const BackButton = () => {
 	const router = useRouter();
 	const onClick = () => {
-		router.back();
+		router.push('/');
 	};
 	return (
 		<Button

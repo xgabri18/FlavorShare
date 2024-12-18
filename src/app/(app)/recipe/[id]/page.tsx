@@ -148,7 +148,7 @@ const Page = async ({ params }: RecipePageProps) => {
 					<div className="flex flex-col">
 						{ingredients.map(ingredient => (
 							<span key={ingredient.id}>
-								{ingredient.quantity.replace('|', '')} - {ingredient.name}
+								{ingredient.quantity.replace('|', ' ')} - {ingredient.name}
 							</span>
 						))}
 					</div>
