@@ -10,6 +10,15 @@ const RemoveFavoriteButton = (props: removeProps) => {
 	const onClick = async () => {
 		await removeFavorite(props.userId, props.recipeId);
 	};
-	return <Button onClick={onClick}>remove favorite</Button>;
+	return (
+		<Button
+			onClick={onClick}
+			className="hover:bg-red-400"
+			type="button"
+			variant="destructive"
+		>
+			Remove favorite
+		</Button>
+	);
 };
 export default RemoveFavoriteButton;

@@ -55,6 +55,7 @@ const Page = async () => {
 								image={recipe.photo_url}
 								title={recipe.name}
 								rating={recipe.rating ?? 0}
+								preparationTime={recipe.preparation_time}
 							/>
 						))}
 					</div>
@@ -75,6 +76,7 @@ const Page = async () => {
 								image={recipe.photo_url}
 								title={recipe.name}
 								rating={recipe.rating ?? 0}
+								preparationTime={recipe.preparation_time}
 							/>
 						))}
 					</div>

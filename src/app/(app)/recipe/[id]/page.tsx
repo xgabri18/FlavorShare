@@ -7,7 +7,7 @@ import { eq } from 'drizzle-orm';
 import { db } from '@/db';
 import { recipes } from '@/db/schema/recipe';
 import { users } from '@/db/schema/user';
-import { InteractableRating } from '@/components/ui/rating';
+import { InteractableRating } from '@/components/ui/rating/rating';
 import { auth } from '@/auth';
 import RemoveOrAddFavorite from '@/components/favoriteButton/remove-or-add-favorite';
 import {
@@ -15,6 +15,8 @@ import {
 	favoriteRecipes
 } from '@/db/schema/favoriteRecipe';
 import { CommentsParent } from '@/components/ui/complex/comments/comments-parent-component';
+import DeleteRecipeButton from '@/components/deleteRecipeButton/delete-recipe-button';
+import { SmallTile } from '@/components/ui/tiles/small-tile';
 
 type RecipePageProps = {
 	params: Promise<{
@@ -65,15 +67,16 @@ const Page = async ({ params }: RecipePageProps) => {
 	const singleAuthor = author[0];
 
 	return (
-		<div className="flex flex-col px-60 py-20">
+		<div className="mx-52 flex flex-col bg-stone-200 p-10 py-20">
 			<div className="flex justify-between">
-				<div className="flex flex-1 bg-slate-500">
-					<div className="relative flex h-80 w-80">
+				<div className="flex flex-1">
+					<div className="relative flex h-96 w-96 rounded-lg bg-white">
 						<Image
 							aria-hidden
-							src="/image.svg" //{image ?? '/image.svg'}
+							src={singleRecipe.photo_url ?? '/image.svg'}
 							alt="Meal picture"
 							fill
+							className="rounded-lg"
 						/>
 						<div className="ml-2 mt-2 flex gap-1">
 							<Star />
@@ -81,56 +84,77 @@ const Page = async ({ params }: RecipePageProps) => {
 						</div>
 					</div>
 				</div>
-				<div className="flex flex-1 flex-col justify-start gap-3 bg-red-400">
-					<h1>{singleRecipe.name}</h1>
-					<span>{singleAuthor.name}</span>
+				<div className="flex flex-1 flex-col justify-start gap-4">
+					<div>
+						<h1 className="text-4xl font-semibold">{singleRecipe.name}</h1>
+						<span className="ml-6 text-lg">by {singleAuthor.name}</span>
+					</div>
 					<div className="flex gap-2">
 						<Clock />
 						<span>{singleRecipe.preparation_time}min</span>
+						<div className="flex gap-2">
+							<Star />
+							<span>{singleRecipe.rating ?? 0}</span>
+						</div>
 					</div>
-					<span>Categories</span>
+					<div>
+						<p>{singleRecipe.description}</p>
+					</div>
 				</div>
 			</div>
-			<div className="flex flex-1 flex-col gap-2 bg-blue-500">
+			{userId && (
 				<div>
-					<h2>Ingredients</h2>
+					<span className="text-sm">
+						Liked this recipe? Don't forget to rate it.
+					</span>
+					<div className="flex content-center gap-5">
+						<InteractableRating recipeId={Number(id)} userId={userId} />
+						<RemoveOrAddFavorite
+							favoriteRecipes={favorRecipes}
+							userId={userId}
+							recipeId={singleRecipe.id}
+						/>
+					</div>
+				</div>
+			)}
+			<div className="mt-2 flex flex-col gap-3">
+				<div className="flex flex-col">
+					<h2 className="text-lg font-medium">Categories</h2>
+					<div className="flex gap-2">
+						<SmallTile content="Dinner" />
+						<SmallTile content="Food" />
+					</div>
+				</div>
+				<div>
+					<h2 className="text-lg font-medium">Ingredients</h2>
 					<span>List of ingredients</span>
 				</div>
 				<div>
-					<h2>Description</h2>
-					<span>{singleRecipe.description}</span>
-				</div>
-				<div>
-					<h2>Instructions</h2>
+					<h2 className="text-lg font-medium">Instructions</h2>
 					<span>{singleRecipe.description}</span>
 				</div>
 			</div>
-			<div className="flex flex-1 flex-col gap-2 bg-green-500">
-				<h2>Comments</h2>
-				<span>
-					Rating from material ui https://mui.com/material-ui/react-rating/
-				</span>
-				<InteractableRating />
-			</div>
-			{userId && (
-				<RemoveOrAddFavorite
-					favoriteRecipes={favorRecipes}
-					userId={userId}
-					recipeId={singleRecipe.id}
-				/>
+
+			{userId === singleAuthor.id && (
+				<DeleteRecipeButton recipeId={singleRecipe.id} />
 			)}
-			<CommentsParent
-				recipeId={Number(id)}
-				currentUser={
-					session === null || session.user === undefined || userId === undefined
-						? null
-						: {
-								name: session.user.name ?? '',
-								image: session.user.image ?? null,
-								id: userId
-							}
-				}
-			/>
+
+			<div className="mt-4">
+				<CommentsParent
+					recipeId={Number(id)}
+					currentUser={
+						session === null ||
+						session.user === undefined ||
+						userId === undefined
+							? null
+							: {
+									name: session.user.name ?? '',
+									image: session.user.image ?? null,
+									id: userId
+								}
+					}
+				/>
+			</div>
 		</div>
 	);
 };

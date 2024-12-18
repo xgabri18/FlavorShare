@@ -14,6 +14,7 @@ export const RecipeList = ({ recipes }: RecipeListProps) => (
 				image={recipe.photo_url}
 				title={recipe.name}
 				rating={recipe.rating ? recipe.rating : 0}
+				preparationTime={recipe.preparation_time}
 			/>
 		))}
 	</div>

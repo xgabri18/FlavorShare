@@ -11,6 +11,10 @@ const AddFavoriteButton = (props: addProps) => {
 	const onClick = async () => {
 		await addToFavorite(props.userId, props.recipeId);
 	};
-	return <Button onClick={onClick}>Add favorite </Button>;
+	return (
+		<Button onClick={onClick} className="text-white hover:bg-blue-400">
+			Add to favorite
+		</Button>
+	);
 };
 export default AddFavoriteButton;
