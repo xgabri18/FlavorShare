@@ -21,6 +21,7 @@ import EditRecipeButton from '@/components/editButton/edit-recipe-button';
 import BackButton from '@/components/back-button';
 import { fetchCategoriesForRecipe } from '@/server-actions/get-categories-for-recipe';
 import { fetchIngredientsForRecipe } from '@/server-actions/get-ingredients-for-recipe';
+import { notFound } from 'next/navigation';
 
 type RecipePageProps = {
 	params: Promise<{
@@ -49,6 +50,9 @@ const Page = async ({ params }: RecipePageProps) => {
 		.from(recipes)
 		.where(eq(recipes.id, Number(id)))
 		.limit(1);
+	if (recipe.length === 0) {
+		return notFound();
+	}
 	const singleRecipe = recipe[0];
 
 	const author = await db
