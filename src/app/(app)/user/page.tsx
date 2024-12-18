@@ -33,12 +33,10 @@ const Page = async () => {
 
 	return (
 		<div className="p-4">
-			{/* User Name Header */}
 			<h1 className="text-center text-2xl font-bold text-gray-800">
 				{userName}
 			</h1>
 
-			{/* Accordion */}
 			<Accordion activeIndex={0} className="mt-6 w-full">
 				<AccordionTab
 					header={

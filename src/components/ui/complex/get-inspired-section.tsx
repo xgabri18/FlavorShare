@@ -1,6 +1,6 @@
 'use server';
 
-import { desc } from 'drizzle-orm';
+import { desc, eq } from 'drizzle-orm';
 
 import { db } from '@/db';
 import { type Recipe, recipes } from '@/db/schema/recipe';
@@ -20,6 +20,7 @@ const getTopRecipes = async () => {
 	const top100Recipes = await db
 		.select()
 		.from(recipes)
+		.where(eq(recipes.visibility, 'public'))
 		.orderBy(desc(recipes.rating))
 		.limit(100)
 		.all();
@@ -34,7 +35,7 @@ export const GetInspiredSection = async () => {
 	return (
 		<div className="flex flex-col border-t-2 border-t-gray-500 p-5">
 			<h2 className="mb-5 flex flex-1 justify-center text-2xl font-semibold text-gray-700">
-				Today's picks
+				Today&#39;s picks
 			</h2>
 			<div className="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-5">
 				{data.map(recipe => (

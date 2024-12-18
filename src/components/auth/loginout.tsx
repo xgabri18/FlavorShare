@@ -1,5 +1,3 @@
-'use server';
-
 import { LoginButton } from '@/components/auth/loginButton';
 import { LogoutButton } from '@/components/auth/logoutButton';
 import { auth } from '@/auth';
