@@ -90,12 +90,13 @@ const Page = async ({ params }: RecipePageProps) => {
 			</div>
 			<div className="flex flex-col lg:flex-row">
 				<div className="flex w-full flex-1 justify-center lg:justify-start">
-					<div className="lg:h-128 lg:w-128 relative flex h-56 w-56 rounded-lg bg-white">
+					<div className="relative flex h-56 w-56 rounded-lg bg-white lg:h-128 lg:w-128">
 						<Image
 							aria-hidden
 							src={singleRecipe.photo_url ?? '/image.svg'}
 							alt="Meal picture"
 							fill
+							objectFit="cover"
 							className="rounded-lg"
 						/>
 					</div>
