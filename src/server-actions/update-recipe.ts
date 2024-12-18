@@ -4,7 +4,7 @@ import { db } from "@/db";
 import { recipes } from "@/db/schema/recipe";
 import { recipeCategories } from "@/db/schema/recipeCategory";
 import { categories as dbCategories} from "@/db/schema/category";
-import { ingredients as dbIngredients, ingredients } from "@/db/schema/ingredient";
+import { ingredients as dbIngredients } from "@/db/schema/ingredient";
 import { eq } from "drizzle-orm";
 import { GetOrCreateCategory } from "./get-or-create-category";
 import { usedIngredients } from "@/db/schema/usedIngredient";
@@ -41,12 +41,12 @@ const updateCategories = async (newCategories: {category: string}[], recipeId: n
 
 const getExistingIngredients = async (recipeId: number) => {
     return await db.select(
-        {name: ingredients.name, quantity: usedIngredients.quantity, ingredientId: ingredients.id, usedIngredientId: usedIngredients.id}
+        {name: dbIngredients.name, quantity: usedIngredients.quantity, ingredientId: dbIngredients.id, usedIngredientId: usedIngredients.id}
     ).from(
         usedIngredients
     ).innerJoin(
-        ingredients, 
-        eq(ingredients.id, usedIngredients.ingredient_id)
+        dbIngredients, 
+        eq(dbIngredients.id, usedIngredients.ingredient_id)
     ).where(eq(usedIngredients.recipe_id, recipeId));
 };
 
@@ -56,8 +56,8 @@ const updateIngredients = async (newIngredients: {name: string, amount: number, 
         const ingredient = newIngredients.find(i => i.name === ingdnt.name);
         if (!ingredient) {
             await db.delete(usedIngredients).where(eq(usedIngredients.id, ingdnt.usedIngredientId));
-            if ((await db.select({}).from(ingredients).where(eq(ingredients.id, ingdnt.ingredientId))).length === 0) {
-                db.delete(ingredients).where(eq(ingredients.id, ingdnt.ingredientId));
+            if ((await db.select().from(dbIngredients).where(eq(dbIngredients.id, ingdnt.ingredientId))).length === 0) {
+                await db.delete(dbIngredients).where(eq(dbIngredients.id, ingdnt.ingredientId));
             }
         } else {
             await db.update(
