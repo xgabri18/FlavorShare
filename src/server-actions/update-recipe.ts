@@ -39,8 +39,8 @@ const updateCategories = async (newCategories: {category: string}[], recipeId: n
     });
 };
 
-const updateIngredients = async (newIngredients: {name: string, amount: number, unit: string}[], recipeId: number) => {
-    const existingIngredients = await db.select(
+const getExistingIngredients = async (recipeId: number) => {
+    return await db.select(
         {name: ingredients.name, quantity: usedIngredients.quantity, ingredientId: ingredients.id, usedIngredientId: usedIngredients.id}
     ).from(
         usedIngredients
@@ -48,6 +48,10 @@ const updateIngredients = async (newIngredients: {name: string, amount: number, 
         ingredients, 
         eq(ingredients.id, usedIngredients.ingredient_id)
     ).where(eq(usedIngredients.recipe_id, recipeId));
+};
+
+const updateIngredients = async (newIngredients: {name: string, amount: number, unit: string}[], recipeId: number) => {
+    const existingIngredients = await getExistingIngredients(recipeId);
     existingIngredients.forEach(async (ingdnt) => {
         const ingredient = newIngredients.find(i => i.name === ingdnt.name);
         if (!ingredient) {
@@ -65,8 +69,9 @@ const updateIngredients = async (newIngredients: {name: string, amount: number, 
             );
         }
     });
+    const afterUpdateIngredients = await getExistingIngredients(recipeId);
     newIngredients.forEach(async (i) => {
-        if (!existingIngredients.find(ingdnt => ingdnt.name === i.name)) {
+        if (!afterUpdateIngredients.find(ingdnt => ingdnt.name === i.name)) {
             const newIngredient = await GetOrCreateIngredient(i);
             await db.insert(usedIngredients).values({ingredient_id: newIngredient, recipe_id: recipeId, quantity: `${i.amount}|${i.unit}`});
         }
