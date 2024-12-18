@@ -26,7 +26,10 @@ export const CommentSection = ({
 			</span>
 			<div className="space-y-4 border-t-2 border-t-gray-300 pt-2">
 				{commentList.map(comment => (
-					<div key={comment.id} className="flex items-start space-x-4">
+					<div
+						key={comment.id}
+						className="flex items-start space-x-1 md:space-x-4"
+					>
 						<UserImageBubble url={comment.userImage} />
 						<CommentArea
 							commentData={comment}

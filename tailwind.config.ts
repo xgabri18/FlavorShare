@@ -14,11 +14,6 @@ const config: Config = {
 				center: true,
 				padding: '1rem'
 			},
-			borderRadius: {
-				lg: 'var(--radius)',
-				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)'
-			},
 			colors: {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
@@ -60,6 +55,9 @@ const config: Config = {
 					'4': 'hsl(var(--chart-4))',
 					'5': 'hsl(var(--chart-5))'
 				}
+			},
+			spacing: {
+				'128': '32rem'
 			}
 		}
 	},

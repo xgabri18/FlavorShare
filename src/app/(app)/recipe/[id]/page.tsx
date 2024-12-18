@@ -1,7 +1,7 @@
 'use server';
 
 import Image from 'next/image';
-import { Clock, Star } from 'lucide-react';
+import { ArrowLeft, Clock, Star } from 'lucide-react';
 import { eq } from 'drizzle-orm';
 
 import { db } from '@/db';
@@ -17,6 +17,10 @@ import {
 import { CommentsParent } from '@/components/ui/complex/comments/comments-parent-component';
 import DeleteRecipeButton from '@/components/deleteRecipeButton/delete-recipe-button';
 import { SmallTile } from '@/components/ui/tiles/small-tile';
+import EditRecipeButton from '@/components/editButton/edit-recipe-button';
+import BackButton from '@/components/back-button';
+import { fetchCategoriesForRecipe } from '@/server-actions/get-categories-for-recipe';
+import { fetchIngredientsForRecipe } from '@/server-actions/get-ingredients-for-recipe';
 
 type RecipePageProps = {
 	params: Promise<{
@@ -66,11 +70,23 @@ const Page = async ({ params }: RecipePageProps) => {
 
 	const singleAuthor = author[0];
 
+	const categories = await fetchCategoriesForRecipe({ recipeId: Number(id) });
+	const ingredients = await fetchIngredientsForRecipe({ recipeId: Number(id) });
+
 	return (
-		<div className="mx-52 flex flex-col bg-stone-200 p-10 py-20">
-			<div className="flex justify-between">
-				<div className="flex flex-1">
-					<div className="relative flex h-96 w-96 rounded-lg bg-white">
+		<div className="flex h-full flex-col bg-stone-200 p-10 lg:mx-52">
+			<div className="flex flex-1 justify-between">
+				<BackButton />
+				{userId === singleAuthor.id && (
+					<div className="space-x-2">
+						<EditRecipeButton recipeId={singleRecipe.id} />
+						<DeleteRecipeButton recipeId={singleRecipe.id} />
+					</div>
+				)}
+			</div>
+			<div className="flex flex-col lg:flex-row">
+				<div className="flex w-full flex-1 justify-center lg:justify-start">
+					<div className="lg:h-128 lg:w-128 relative flex h-56 w-56 rounded-lg bg-white">
 						<Image
 							aria-hidden
 							src={singleRecipe.photo_url ?? '/image.svg'}
@@ -78,13 +94,9 @@ const Page = async ({ params }: RecipePageProps) => {
 							fill
 							className="rounded-lg"
 						/>
-						<div className="ml-2 mt-2 flex gap-1">
-							<Star />
-							<span>{singleRecipe.rating}</span>
-						</div>
 					</div>
 				</div>
-				<div className="flex flex-1 flex-col justify-start gap-4">
+				<div className="flex flex-col justify-start gap-4 lg:w-2/3 lg:pl-8">
 					<div>
 						<h1 className="text-4xl font-semibold">{singleRecipe.name}</h1>
 						<span className="ml-6 text-lg">by {singleAuthor.name}</span>
@@ -94,7 +106,7 @@ const Page = async ({ params }: RecipePageProps) => {
 						<span>{singleRecipe.preparation_time}min</span>
 						<div className="flex gap-2">
 							<Star />
-							<span>{singleRecipe.rating ?? 0}</span>
+							<span>{singleRecipe.rating?.toPrecision(2) ?? 0}</span>
 						</div>
 					</div>
 					<div>
@@ -103,7 +115,7 @@ const Page = async ({ params }: RecipePageProps) => {
 				</div>
 			</div>
 			{userId && (
-				<div>
+				<div className="mt-4 lg:mt-0">
 					<span className="text-sm">
 						Liked this recipe? Don't forget to rate it.
 					</span>
@@ -119,25 +131,28 @@ const Page = async ({ params }: RecipePageProps) => {
 			)}
 			<div className="mt-2 flex flex-col gap-3">
 				<div className="flex flex-col">
-					<h2 className="text-lg font-medium">Categories</h2>
-					<div className="flex gap-2">
-						<SmallTile content="Dinner" />
-						<SmallTile content="Food" />
+					<h2 className="text-xl font-medium">Categories</h2>
+					<div className="flex flex-wrap gap-2">
+						{categories.map(category => (
+							<SmallTile key={category.id} content={category.name} />
+						))}
 					</div>
 				</div>
 				<div>
-					<h2 className="text-lg font-medium">Ingredients</h2>
-					<span>List of ingredients</span>
+					<h2 className="text-xl font-medium">Ingredients</h2>
+					<div className="flex flex-col">
+						{ingredients.map(ingredient => (
+							<span key={ingredient.id}>
+								{ingredient.quantity.replace('|', '')} - {ingredient.name}
+							</span>
+						))}
+					</div>
 				</div>
 				<div>
-					<h2 className="text-lg font-medium">Instructions</h2>
-					<span>{singleRecipe.description}</span>
+					<h2 className="text-xl font-medium">Instructions</h2>
+					<span>{singleRecipe.steps}</span>
 				</div>
 			</div>
-
-			{userId === singleAuthor.id && (
-				<DeleteRecipeButton recipeId={singleRecipe.id} />
-			)}
 
 			<div className="mt-4">
 				<CommentsParent
