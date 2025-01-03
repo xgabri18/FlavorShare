@@ -3,7 +3,8 @@ import { text, integer, sqliteTable,primaryKey } from "drizzle-orm/sqlite-core";
 import { recipes } from "./recipe";
 import { comments } from "./comment";
 import { favoriteRecipes } from "./favoriteRecipe";
- import type { AdapterAccountType } from "next-auth/adapters"
+import type { AdapterAccountType } from "next-auth/adapters"
+import { restaurants } from "./restaurant";
 
 // export const users = sqliteTable("users", {
 //   id: integer("id").primaryKey().notNull(),
@@ -20,6 +21,9 @@ export const users = sqliteTable("user", {
   email: text("email").unique(),
   emailVerified: integer("emailVerified", { mode: "timestamp_ms" }),
   image: text("image"),
+  chef: integer("chef", { mode: "boolean" }).$default(() => false),
+  visibility: integer("visibility", { mode: "boolean" }).$default(() => false),
+  restaurant_id: integer("restaurant_id"),
 })
  
 export const accounts = sqliteTable(
@@ -91,8 +95,12 @@ export const authenticators = sqliteTable(
   })
 )
 
-export const userRelations = relations(users, ({ many }) => ({
+export const userRelations = relations(users, ({ one, many }) => ({
   recipes: many(recipes),
   comments: many(comments),
   favoriteRecipes: many(favoriteRecipes),
+  restaurant: one(restaurants, {
+    fields: [users.restaurant_id],
+    references: [restaurants.id],
+  }),
 }));
