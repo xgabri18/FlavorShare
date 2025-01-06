@@ -74,7 +74,7 @@ const DynamicForm = ({...props}: DynamicFormProps) => {
 		<FormProvider {...form}>
 			<form className="bg-stone-200 w-full text-lg justify-center content-center self-center flex-column" onSubmit={form.handleSubmit(props.recipeId === null ? onCreate : onUpdate)}>
 				<Button
-				onClick={() => router.push(props.recipeId === null ? '/' : `/recipe/${props.recipeId}`)}
+				onClick={(e) => {e.preventDefault(); router.push(props.recipeId === null ? '/' : `/recipe/${props.recipeId}`);}}
 				className='m-4 hover:bg-blue-600 w-24 rounded-xl bg-stone-400 text-xl'
 				>
 					<ArrowLeft/>
@@ -151,7 +151,7 @@ const DynamicForm = ({...props}: DynamicFormProps) => {
 						Save
 					</Button>
 					<Button 
-					onClick={() => router.back()}
+					onClick={(e) => {e.preventDefault(); router.back();}}
 					variant="default" 
 					size="lg" 
 					className='m-4 hover:bg-red-300 bg-red-600 rounded-xl text-xl text-stone-200 hover:text-black border-red-600 hover:border-red-700 border-8 border'>
