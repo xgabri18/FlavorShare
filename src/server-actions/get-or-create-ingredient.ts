@@ -10,7 +10,7 @@ export const GetOrCreateIngredient = async (data: Ingredient) => {
 		.select()
 		.from(ingredients)
 		.where(eq(ingredients.name, data.name.toLowerCase()));
-	if (existing.length === 1) {
+	if (existing.length !== 0) {
 		return existing[0].id;
 	}
 	const res = await db

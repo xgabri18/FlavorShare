@@ -10,7 +10,7 @@ export const GetOrCreateCategory = async (data: Category) => {
 		.select()
 		.from(categories)
 		.where(eq(categories.name, data.category.toLowerCase()));
-	if (category.length === 1) {
+	if (category.length !== 0) {
 		return category[0];
 	}
 	return (
