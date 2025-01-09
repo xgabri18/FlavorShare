@@ -7,6 +7,8 @@ import { db } from '@/db';
 import { recipes } from '@/db/schema/recipe';
 import { favoriteRecipes } from '@/db/schema/favoriteRecipe';
 import { RecipeTile } from '@/components/ui/tiles/recipe-tile';
+import { restaurants } from '@/db/schema/restaurant';
+import { RestaurantTile } from '@/components/ui/tiles/restaurantTile';
 
 const Page = async () => {
 	const session = await auth();
@@ -17,6 +19,10 @@ const Page = async () => {
 	const userId = session.user.id ?? '';
 	const userName = session.user.name ?? 'Unknown';
 
+	const userRestaurants = await db
+		.select()
+		.from(restaurants)
+		.where(eq(restaurants.user_id, userId));
 	const allRecipes = await db.select().from(recipes);
 	const userRecipes = allRecipes.filter(recipe => recipe.user_id === userId);
 
@@ -79,6 +85,26 @@ const Page = async () => {
 						))}
 					</div>
 				</AccordionTab>
+				{userRestaurants.length > 0 && (
+					<AccordionTab
+						header={
+							<span className="block w-full border border-gray-300 bg-gray-200 px-4 py-2 text-lg font-semibold text-black shadow-md">
+								My restaurants
+							</span>
+						}
+					>
+						<div className="grid grid-cols-1 gap-4 p-2 md:grid-cols-2 lg:grid-cols-5">
+							{userRestaurants.map(restaurant => (
+								<RestaurantTile
+									key={restaurant.id}
+									restaurantId={restaurant.id}
+									restaurantName={restaurant.name}
+									restaurantLocation={restaurant.location}
+								/>
+							))}
+						</div>
+					</AccordionTab>
+				)}
 			</Accordion>
 		</div>
 	);
