@@ -1,4 +1,3 @@
-import { checkRestaurantName } from "@/server-actions/check-restaurant-name";
 import { z } from "zod";
 
 
@@ -7,10 +6,7 @@ export const cheff = z.object({
 });
 
 export const restaurantFormSchema = z.object({
-    name: z.string().min(3).refine(
-        async (name) => await checkRestaurantName(name),
-        (name) => ({message: `Restaurant with name \'${name}\' already exists.`}),
-    ),
+    name: z.string().min(3),
     location: z.string(),
     cheffs: z.array(cheff)
 });

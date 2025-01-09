@@ -6,5 +6,7 @@ import { eq } from 'drizzle-orm';
 
 
 export const checkRestaurantName = async (restaurantName: string) => {
-	return (await db.select().from(restaurants).where(eq(restaurants.name, restaurantName))).length === 0;
+	if( (await db.select().from(restaurants).where(eq(restaurants.name, restaurantName))).length === 0) {
+		throw new Error(`Restaurant with name \'${restaurantName}\' already exists.`)
+	}
 };
