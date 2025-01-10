@@ -2,8 +2,8 @@
 
 import { Dispatch, SetStateAction, useState } from 'react';
 
-import { JoinedUserComment } from './types';
 import { deleteComment, editComment } from './actions';
+import { JoinedUserComment } from './types';
 
 export const CommentArea = ({
 	currentUserId,
