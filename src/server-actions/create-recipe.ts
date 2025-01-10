@@ -25,19 +25,19 @@ export const CreateRecipe = async (
 		})
 		.returning({ id: recipes.id });
 
-	data.ingredients.forEach(async ingredient => {
+	for (const ingredient of data.ingredients) {
 		const newIngredientId = await GetOrCreateIngredient(ingredient);
 		await db.insert(usedIngredients).values({
 			recipe_id: recipe[0].id,
 			ingredient_id: newIngredientId,
 			quantity: `${ingredient.amount}|${ingredient.unit}`
 		});
-	});
-	data.categories.forEach(async category => {
+	}
+	for (const category of data.categories) {
 		const newCategory = await GetOrCreateCategory(category);
 		await db.insert(recipeCategories).values({
 			recipe_id: recipe[0].id,
 			category_id: newCategory.id
 		});
-	});
+	}
 };
