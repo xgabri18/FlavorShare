@@ -9,6 +9,8 @@ import { favoriteRecipes } from '@/db/schema/favoriteRecipe';
 import { RecipeTile } from '@/components/ui/tiles/recipe-tile';
 import { restaurants } from '@/db/schema/restaurant';
 import { RestaurantTile } from '@/components/ui/tiles/restaurantTile';
+import ChefManage from '@/components/chefManagement/chef-manage';
+import { users } from '@/db/schema/user';
 
 const Page = async () => {
 	const session = await auth();
@@ -26,6 +28,10 @@ const Page = async () => {
 	const allRecipes = await db.select().from(recipes);
 	const userRecipes = allRecipes.filter(recipe => recipe.user_id === userId);
 
+	const user = (await db.select().from(users).where(eq(users.id, userId))).at(
+		0
+	);
+
 	const favoriteRecipesIds = (
 		await db
 			.select()
@@ -42,7 +48,13 @@ const Page = async () => {
 			<h1 className="text-center text-2xl font-bold text-gray-800">
 				{userName}
 			</h1>
-
+			{user && (
+				<ChefManage
+					userId={userId}
+					chef={user.chef}
+					restaurantId={user.restaurant_id}
+				/>
+			)}
 			<Accordion activeIndex={0} className="mt-6 w-full">
 				<AccordionTab
 					header={

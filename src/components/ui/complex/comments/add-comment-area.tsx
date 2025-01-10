@@ -2,9 +2,10 @@
 
 import { Dispatch, SetStateAction, useState } from 'react';
 
+import { Button } from '../../button';
 import { JoinedUserComment, NewComment } from './types';
 import { addComment, fetchCommentsWithUser } from './actions';
-import { Button } from '../../button';
+
 
 export const AddCommentArea = ({
 	currentUserId,

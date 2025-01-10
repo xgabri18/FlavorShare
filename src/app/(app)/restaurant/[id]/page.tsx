@@ -6,7 +6,6 @@ import { notFound } from 'next/navigation';
 import { db } from '@/db';
 import { restaurants } from '@/db/schema/restaurant';
 import { users } from '@/db/schema/user';
-
 const WEEKLY_MENU_EDITOR_LINK = '/menu-editor';
 
 export type RestaurantProps = {
@@ -32,10 +31,8 @@ const Page = async ({ params }: RestaurantProps) => {
 
 	return (
 		<div className="p-8 font-sans">
-			{/* Restaurant Name */}
 			<h1 className="mb-4 text-4xl font-bold">{restaurant.name}</h1>
 
-			{/* Restaurant Details */}
 			<p className="mb-2 text-lg">
 				<strong>Owner:</strong> {owner?.name}
 			</p>
