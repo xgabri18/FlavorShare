@@ -30,4 +30,4 @@ FlavorShare uses SQLite as the database engine, hosted at Turso. The database sc
 
 ![Schema](FlavorShareDb.jpg)
 
-The database also contains custom triggers for updating the average recipe rating.
+The database also contains custom triggers for updating the average recipe rating and cascade deletes.
