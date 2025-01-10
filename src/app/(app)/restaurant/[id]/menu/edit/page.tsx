@@ -5,7 +5,13 @@ import MenuDndParent from '@/components/menu/menu-dnd-parent';
 import { isUserRestaurantOwner } from '@/server-actions/user';
 import { redirect } from 'next/navigation';
 
-const MenuEditPage = async ({ params }: { params: { id: string } }) => {
+type MenuPageProps = {
+	params: Promise<{
+		id: string;
+	}>;
+};
+
+const MenuEditPage = async ({ params }: MenuPageProps) => {
 	const { id } = await params;
 	const restaurantId = id;
 

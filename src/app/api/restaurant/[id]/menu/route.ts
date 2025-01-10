@@ -7,9 +7,15 @@ import { z, ZodError } from 'zod';
 
 export const dynamic = 'force-dynamic';
 
+type MenuApiProps = {
+	params: Promise<{
+		id: string;
+	}>;
+};
+
 export const GET = async (
 	req: NextRequest, // this is necessary because otherwise the params dont work???
-	{ params }: { params: { id: string } }
+	{ params }: MenuApiProps
 ) => {
 	const { id } = await params;
 
@@ -76,7 +82,7 @@ const requestBodySchema = z.object({
 
 export const POST = async (
 	req: NextRequest, // this is necessary because otherwise the params dont work???
-	{ params }: { params: { id: string } }
+	{ params }: MenuApiProps
 ) => {
 	const body = await req.json();
 	const { id } = await params;

@@ -6,7 +6,13 @@ import {
 } from '@/components/menu/actions';
 import { StaticMenuList } from '@/components/menu/static-menu-list';
 
-const MenuPage = async ({ params }: { params: { id: string } }) => {
+type MenuPageProps = {
+	params: Promise<{
+		id: string;
+	}>;
+};
+
+const MenuPage = async ({ params }: MenuPageProps) => {
 	const { id } = await params;
 	const restaurantId = id;
 	const menu = await getMenuForRestaurantAction(Number(restaurantId));
