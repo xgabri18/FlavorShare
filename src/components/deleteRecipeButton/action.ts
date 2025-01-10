@@ -9,6 +9,7 @@ import { recipeCategories } from '@/db/schema/recipeCategory';
 import { ingredients } from '@/db/schema/ingredient';
 import { categories } from '@/db/schema/category';
 import { deleteImage } from '@/server-actions/delete-image';
+import { restaurantRecipes } from '@/db/schema/restaurantRecipes';
 
 export const deleteRecipe = async (recipeId: number) => {
 	try {
@@ -26,6 +27,8 @@ export const deleteRecipe = async (recipeId: number) => {
 				await db.delete(categories).where(eq(categories.id, dbCategory.category_id));
 			}
 		})
+		await db.delete(restaurantRecipes).where(eq(restaurantRecipes.recipe_id, recipeId));
+		
 		const recipe = await db.select().from(recipes).where(eq(recipes.id, recipeId));
 		await db.delete(recipes).where(eq(recipes.id, recipeId));
 		if (recipe[0].photo_url !== null) {
