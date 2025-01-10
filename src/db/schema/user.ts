@@ -21,7 +21,7 @@ export const users = sqliteTable("user", {
   email: text("email").unique(),
   emailVerified: integer("emailVerified", { mode: "timestamp_ms" }),
   image: text("image"),
-  chef: integer("chef", { mode: "boolean" }).$default(() => false),
+  chef: integer("chef", { mode: "boolean" }).$default(() => false).notNull(),
   visibility: integer("visibility", { mode: "boolean" }).$default(() => false),
   restaurant_id: integer("restaurant_id"),
 })

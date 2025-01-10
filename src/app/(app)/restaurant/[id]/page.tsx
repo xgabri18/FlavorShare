@@ -6,7 +6,6 @@ import { notFound } from 'next/navigation';
 import { db } from '@/db';
 import { restaurants } from '@/db/schema/restaurant';
 import { users } from '@/db/schema/user';
-import { Button } from '@/components/ui/button';
 import { DeleteRestaurantButton } from '@/components/delete-restaurant-button';
 
 const WEEKLY_MENU_EDITOR_LINK = '/menu-editor';
