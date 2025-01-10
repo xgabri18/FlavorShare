@@ -8,6 +8,10 @@ import { usedIngredients } from '@/db/schema/usedIngredient';
 import { recipeCategories } from '@/db/schema/recipeCategory';
 import { ingredients } from '@/db/schema/ingredient';
 import { categories } from '@/db/schema/category';
+import { deleteImage } from '@/server-actions/delete-image';
+import { restaurantRecipes } from '@/db/schema/restaurantRecipes';
+import { favoriteRecipes } from '@/db/schema/favoriteRecipe';
+import { comments } from '@/db/schema/comment';
 
 export const deleteRecipe = async (recipeId: number) => {
 	try {
@@ -25,8 +29,15 @@ export const deleteRecipe = async (recipeId: number) => {
 				await db.delete(categories).where(eq(categories.id, dbCategory.category_id));
 			}
 		})
+		await db.delete(restaurantRecipes).where(eq(restaurantRecipes.recipe_id, recipeId));
+		await db.delete(favoriteRecipes).where(eq(favoriteRecipes.recipe_id, recipeId));
+		await db.delete(comments).where(eq(comments.recipe_id, recipeId));
 		
+		const recipe = await db.select().from(recipes).where(eq(recipes.id, recipeId));
 		await db.delete(recipes).where(eq(recipes.id, recipeId));
+		if (recipe[0].photo_url !== null) {
+			await deleteImage(recipe[0].photo_url);
+		}
 		revalidatePath(`/browse`);
 	} catch (error) {
 		console.error('Error deleting recipe:', error);
