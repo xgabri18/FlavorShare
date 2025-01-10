@@ -1,8 +1,8 @@
 'use server';
 
-import CommentSection from './comments-section';
-import { CurrentUser, JoinedUserComment } from './types';
 import { fetchCommentsWithUser } from './actions';
+import CommentSection from './comments-section';
+import { CurrentUser } from './types';
 
 export const CommentsParent = async ({
 	recipeId,

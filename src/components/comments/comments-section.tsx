@@ -1,10 +1,10 @@
 'use client';
 
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
+import { AddCommentArea } from './add-comment-area';
+import { CommentArea } from './comment-area';
 import { CurrentUser, JoinedUserComment } from './types';
 import { UserImageBubble } from './user-image-bubble';
-import { CommentArea } from './comment-area';
-import { AddCommentArea } from './add-comment-area';
 
 type CommentsProps = {
 	comments: JoinedUserComment[];

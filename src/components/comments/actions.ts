@@ -2,9 +2,9 @@
 
 import { db } from '@/db';
 import { comments } from '@/db/schema/comment';
-import { JoinedUserComment, NewComment } from './types';
 import { users } from '@/db/schema/user';
 import { eq } from 'drizzle-orm';
+import { JoinedUserComment, NewComment } from './types';
 
 export const addComment = async (newComment: NewComment) => {
 	try {
