@@ -1,6 +1,7 @@
+import { eq } from 'drizzle-orm';
+
 import { db } from '@/db';
 import { restaurants } from '@/db/schema/restaurant';
-import { eq } from 'drizzle-orm';
 
 export const isUserRestaurantOwner = async (
 	user_id: string,

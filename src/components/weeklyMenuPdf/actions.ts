@@ -16,10 +16,9 @@ type Ingredient = {
 
 type WeeklyMenu = Record<string, Ingredient[]>;
 
-// eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-export async function fetchWeeklyMenuWithIngredients(
+export const fetchWeeklyMenuWithIngredients = async (
 	restaurantId: number
-): Promise<WeeklyMenu> {
+): Promise<WeeklyMenu> => {
 	const weeklyMenu = await db
 		.select({
 			recipeName: recipes.name,
@@ -32,7 +31,7 @@ export async function fetchWeeklyMenuWithIngredients(
 		.innerJoin(ingredients, eq(usedIngredients.ingredient_id, ingredients.id))
 		.where(eq(restaurantRecipes.restaurant_id, restaurantId));
 
-	const formattedMenu: WeeklyMenu = weeklyMenu.reduce((acc, item) => {
+	return weeklyMenu.reduce((acc, item) => {
 		const { recipeName, ingredientName, quantity } = item;
 
 		const [amountStr, ...unitArr] = quantity.split('|');
@@ -51,12 +50,9 @@ export async function fetchWeeklyMenuWithIngredients(
 
 		return acc;
 	}, {} as WeeklyMenu);
+};
 
-	return formattedMenu;
-}
-
-// eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-export async function fetchWeeklyMenuData(restaurantId: number) {
+export const fetchWeeklyMenuData = async (restaurantId: number) => {
 	const weeklyRecipes = await db
 		.select()
 		.from(restaurantRecipes)
@@ -87,4 +83,4 @@ export async function fetchWeeklyMenuData(restaurantId: number) {
 	});
 
 	return groupedByDay;
-}
+};

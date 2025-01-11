@@ -1,10 +1,11 @@
 'use server';
 
+import { and, eq } from 'drizzle-orm';
+
 import { db } from '@/db';
 import { ratings } from '@/db/schema/ratings';
-import { and, eq } from 'drizzle-orm';
-import { EditRating, NewRating, Rating } from './types';
-import { log } from 'console';
+
+import { type EditRating, type NewRating, type Rating } from './types';
 
 export const createNewRating = async ({
 	newRating

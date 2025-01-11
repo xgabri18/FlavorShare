@@ -1,9 +1,10 @@
 'use server';
 
+import { eq, inArray } from 'drizzle-orm';
+
 import { db } from '@/db';
 import { categories } from '@/db/schema/category';
 import { recipeCategories } from '@/db/schema/recipeCategory';
-import { eq, inArray } from 'drizzle-orm';
 
 export type Category = {
 	id: number;
@@ -24,10 +25,9 @@ export const fetchCategoriesForRecipe = async ({
 		.all();
 
 	const categoryIdsArray = categoryIds.map(cat => cat.id);
-	const matchingCategories = await db
+	return db
 		.select()
 		.from(categories)
 		.where(inArray(categories.id, categoryIdsArray))
 		.all();
-	return matchingCategories;
 };

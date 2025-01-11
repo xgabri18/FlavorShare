@@ -1,7 +1,6 @@
 import { sqliteTable, integer, text } from 'drizzle-orm/sqlite-core';
 import { type InferSelectModel, relations } from 'drizzle-orm';
 
-import { recipes } from './recipe';
 import { recipeCategories } from './recipeCategory';
 
 export const categories = sqliteTable('categories', {

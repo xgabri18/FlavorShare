@@ -3,6 +3,7 @@ import { notFound, redirect } from 'next/navigation';
 import { auth } from '@/auth';
 import RestaurantFormComponent from '@/components/form/restaurant-form';
 import getRestaurantWithRelated from '@/server-actions/get-restaurant-with-related';
+import { isUserRestaurantOwner } from '@/server-actions/user';
 
 type RecipePageProps = {
 	params: Promise<{
@@ -15,6 +16,10 @@ const Page = async ({ params }: RecipePageProps) => {
 	const session = await auth();
 	if (!session?.user?.id) {
 		redirect('/auth/signing');
+	}
+	const isUserOwner = await isUserRestaurantOwner(session.user.id, Number(id));
+	if (!isUserOwner) {
+		redirect(`/restaurant/${id}/menu`);
 	}
 	const restaurant = await getRestaurantWithRelated(
 		Number(id),

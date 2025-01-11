@@ -1,10 +1,11 @@
+import { redirect } from 'next/navigation';
+
 import { auth } from '@/auth';
 import RestaurantFormComponent from '@/components/form/restaurant-form';
-import { redirect } from 'next/navigation';
 
 const Page = async () => {
 	const session = await auth();
-	if (!session?.user || !session.user.id) {
+	if (!session?.user?.id) {
 		redirect('/auth/signing');
 	}
 

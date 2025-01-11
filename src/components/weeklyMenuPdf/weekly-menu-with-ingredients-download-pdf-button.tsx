@@ -11,7 +11,9 @@ type Props = {
 	restaurantId: number;
 };
 
-const PdfDownloadButton = ({ restaurantId }: Props) => {
+const WeeklyMenuWithIngredientsDownloadPdfButton = ({
+	restaurantId
+}: Props) => {
 	const [loading, setLoading] = useState<boolean>(false);
 
 	const handleDownloadClick = async () => {
@@ -36,9 +38,9 @@ const PdfDownloadButton = ({ restaurantId }: Props) => {
 			className="rounded bg-blue-500 p-2 text-white"
 			disabled={loading}
 		>
-			{loading ? 'Generating PDF...' : 'Download PDF'}
+			{loading ? 'Generating PDF...' : 'Download Shop List'}
 		</button>
 	);
 };
 
-export default PdfDownloadButton;
+export default WeeklyMenuWithIngredientsDownloadPdfButton;

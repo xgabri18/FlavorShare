@@ -1,4 +1,4 @@
-// recipeCategory.ts
+import { type InferSelectModel, relations } from 'drizzle-orm';
 import { sqliteTable, integer } from 'drizzle-orm/sqlite-core';
 
 import { recipes } from './recipe'; // Import the recipes table
@@ -9,8 +9,6 @@ export const recipeCategories = sqliteTable('recipe_categories', {
 	recipe_id: integer('recipe_id').notNull(),
 	category_id: integer('category_id').notNull()
 });
-
-import { type InferSelectModel, relations } from 'drizzle-orm';
 
 export const recipeCategoryRelations = relations(
 	recipeCategories,

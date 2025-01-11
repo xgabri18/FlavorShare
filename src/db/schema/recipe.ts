@@ -1,8 +1,6 @@
 import { type InferSelectModel, relations } from 'drizzle-orm';
 import { text, integer, sqliteTable, real } from 'drizzle-orm/sqlite-core';
 
-import { categories } from '@/db/schema/category';
-
 import { users } from './user';
 import { usedIngredients } from './usedIngredient';
 import { comments } from './comment';

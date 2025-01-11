@@ -1,5 +1,4 @@
 import Image from 'next/image';
-
 import { Clock, Star } from 'lucide-react';
 import Link from 'next/link';
 
