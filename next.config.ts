@@ -19,7 +19,7 @@ const nextConfig: NextConfig = {
 			},
 			{
 				protocol: 'https',
-				hostname: 'ntdoas63ys.ufs.sh',
+				hostname: 'utfs.io',
 				port: '',
 				pathname: '/f/**',
 				search: ''
