@@ -1,8 +1,10 @@
-import { cn } from '@/lib/cn';
 import { Search } from 'lucide-react';
 import { useState } from 'react';
+
+import { cn } from '@/lib/cn';
+
 import DroppableRecipeList from './droppable-recipe-list';
-import { MenuRecipeDroppable } from './types';
+import { type MenuRecipeDroppable } from './types';
 
 export const RecipeListParent = ({
 	className,
@@ -43,24 +45,22 @@ const SearchBar = ({
 }: {
 	searchTerm: string;
 	setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
-}) => {
-	return (
-		<form onSubmit={e => e.preventDefault()}>
-			<div className="flex">
-				<input
-					type="text"
-					value={searchTerm}
-					onChange={e => setSearchTerm(e.target.value)}
-					placeholder="Search for recipes..."
-					className="md:text-md w-full rounded-full border border-gray-300 p-2 pr-10 text-sm"
-				/>
-				<button
-					type="submit"
-					className="-ml-10 items-center text-gray-400 hover:text-black"
-				>
-					<Search size={20} className="transition-colors duration-200" />
-				</button>
-			</div>
-		</form>
-	);
-};
+}) => (
+	<form onSubmit={e => e.preventDefault()}>
+		<div className="flex">
+			<input
+				type="text"
+				value={searchTerm}
+				onChange={e => setSearchTerm(e.target.value)}
+				placeholder="Search for recipes..."
+				className="md:text-md w-full rounded-full border border-gray-300 p-2 pr-10 text-sm"
+			/>
+			<button
+				type="submit"
+				className="-ml-10 items-center text-gray-400 hover:text-black"
+			>
+				<Search size={20} className="transition-colors duration-200" />
+			</button>
+		</div>
+	</form>
+);

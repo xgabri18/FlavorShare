@@ -1,9 +1,8 @@
-import updateRecipe from "@/server-actions/update-recipe";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation } from '@tanstack/react-query';
 
+import updateRecipe from '@/server-actions/update-recipe';
 
-export const useUpdateRecipeMutation = () => {
-    return useMutation({
-        mutationFn: updateRecipe
-    });
-};
+export const useUpdateRecipeMutation = () =>
+	useMutation({
+		mutationFn: updateRecipe
+	});

@@ -16,7 +16,7 @@ export const FormInput = ({ name, label, ...inputProps }: FormInputProps) => {
 	} = useFormContext();
 
 	return (
-		<label htmlFor={name} className='border-none outline-none ring-none'>
+		<label htmlFor={name} className="ring-none border-none outline-none">
 			<div>{label}</div>
 
 			<Input

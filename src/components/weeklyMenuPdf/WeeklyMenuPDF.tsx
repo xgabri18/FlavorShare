@@ -43,7 +43,7 @@ const WeeklyMenuPDF = ({ daysOfWeek, groupedByDay }: Props) => (
 					{groupedByDay[day].length > 0 ? (
 						groupedByDay[day].map((recipeName, index) => (
 							<Text key={index} style={styles.listItem}>
-								• {recipeName}
+								{index + 1}. {recipeName}
 							</Text>
 						))
 					) : (

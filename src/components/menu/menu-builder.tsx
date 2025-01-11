@@ -1,7 +1,9 @@
 import { cn } from '@/lib/cn';
+
 import { Button } from '../ui/button';
+
 import { DailyMenu } from './daily-menu';
-import { MenuRecipeDroppable } from './types';
+import { type MenuRecipeDroppable } from './types';
 
 const daysOfWeek = [
 	'Monday',
@@ -25,36 +27,34 @@ export const MenuBuilder = ({
 	handleRemoveItem: (recipeId: number) => void;
 	isSubmitPending: boolean;
 	submitFn: () => void;
-}) => {
-	return (
-		<div
-			className={cn(
-				className,
-				'flex flex-col gap-2 border border-gray-300 p-4 md:rounded-lg'
-			)}
+}) => (
+	<div
+		className={cn(
+			className,
+			'flex flex-col gap-2 border border-gray-300 p-4 md:rounded-lg'
+		)}
+	>
+		<Button
+			type="button"
+			variant="default"
+			className="mb-2 self-center md:w-1/3"
+			disabled={isSubmitPending}
+			onClick={submitFn}
 		>
-			<Button
-				type="button"
-				variant={'default'}
-				className="mb-2 self-center md:w-1/3"
-				disabled={isSubmitPending}
-				onClick={submitFn}
-			>
-				{isSubmitPending ? 'Submitting...' : 'Submit menu'}
-			</Button>
-			{daysOfWeek.map(day => {
-				const filteredRecipes = recipes.filter(
-					recipe => recipe.day.toLowerCase() === day.toLowerCase()
-				);
-				return (
-					<DailyMenu
-						key={day}
-						recipes={filteredRecipes}
-						title={day}
-						handleRemoveItem={handleRemoveItem}
-					/>
-				);
-			})}
-		</div>
-	);
-};
+			{isSubmitPending ? 'Submitting...' : 'Submit menu'}
+		</Button>
+		{daysOfWeek.map(day => {
+			const filteredRecipes = recipes.filter(
+				recipe => recipe.day.toLowerCase() === day.toLowerCase()
+			);
+			return (
+				<DailyMenu
+					key={day}
+					recipes={filteredRecipes}
+					title={day}
+					handleRemoveItem={handleRemoveItem}
+				/>
+			);
+		})}
+	</div>
+);

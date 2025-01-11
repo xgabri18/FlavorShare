@@ -37,7 +37,7 @@ const PdfDownloadButton = ({ restaurantId }: Props) => {
 			className="rounded bg-blue-500 p-2 text-white"
 			disabled={loading}
 		>
-			{loading ? 'Generating PDF...' : 'Download Weekly Menu PDF'}
+			{loading ? 'Generating PDF...' : 'Download Weekly Menu'}
 		</button>
 	);
 };

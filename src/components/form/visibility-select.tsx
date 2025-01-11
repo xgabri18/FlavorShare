@@ -8,7 +8,7 @@ export const VisibilitySelect = () => {
 		<label className="my-2">
 			<div className="py-1">Visibility</div>
 			<select
-				className="flex h-10 w-full rounded-xl bg-stone-400 px-3 py-2 text-lg placeholder:text-muted-foreground border-none"
+				className="flex h-10 w-full rounded-xl border-none bg-stone-400 px-3 py-2 text-lg placeholder:text-muted-foreground"
 				{...register('visibility')}
 			>
 				{visibilityOptions.map(option => (

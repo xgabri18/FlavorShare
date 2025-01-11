@@ -10,7 +10,7 @@ import { GetOrCreateIngredient } from './get-or-create-ingredient';
 import { GetOrCreateCategory } from './get-or-create-category';
 
 export const CreateRecipe = async (
-	data: RecipeForm & { imageUrl: string | null, userId: string }
+	data: RecipeForm & { imageUrl: string | null; userId: string }
 ) => {
 	const recipe = await db
 		.insert(recipes)
@@ -21,7 +21,7 @@ export const CreateRecipe = async (
 			visibility: data.visibility,
 			user_id: data.userId,
 			photo_url: data.imageUrl,
-			steps: data.recipeSteps,
+			steps: data.recipeSteps
 		})
 		.returning({ id: recipes.id });
 

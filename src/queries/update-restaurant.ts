@@ -1,9 +1,10 @@
 'use client';
 
-import { updateRestaurant } from "@/server-actions/update-restaurant";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation } from '@tanstack/react-query';
 
-export const useUpdateRestaurantMutation = () => 
-    useMutation({
-        mutationFn: updateRestaurant
-    });
+import { updateRestaurant } from '@/server-actions/update-restaurant';
+
+export const useUpdateRestaurantMutation = () =>
+	useMutation({
+		mutationFn: updateRestaurant
+	});

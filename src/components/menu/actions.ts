@@ -1,8 +1,9 @@
+import { and, eq } from 'drizzle-orm';
+
 import { db } from '@/db';
 import { recipes } from '@/db/schema/recipe';
 import { restaurants } from '@/db/schema/restaurant';
 import { restaurantRecipes } from '@/db/schema/restaurantRecipes';
-import { and, eq } from 'drizzle-orm';
 
 export const getRestaurantNameAction = async (
 	restaurantId: number
@@ -36,7 +37,7 @@ export const getMenuForRestaurantAction = async (
 		];
 		const recipesByDay: Record<string, any[]> = {};
 		for (const day of daysOfWeek) {
-			const recipesList = await db
+			recipesByDay[day] = await db
 				.select({
 					recipe_name: recipes.name
 				})
@@ -53,8 +54,6 @@ export const getMenuForRestaurantAction = async (
 				)
 				.orderBy(restaurantRecipes.id) // will this work for the ordering?
 				.all();
-
-			recipesByDay[day] = recipesList;
 		}
 		return recipesByDay;
 	} catch (error) {

@@ -1,15 +1,15 @@
 import { useMemo } from 'react';
-
 import { useDroppable } from '@dnd-kit/core';
 import { SortableContext } from '@dnd-kit/sortable';
-import { SortableRecipe } from './sortable-recipe';
-import { MenuRecipeDroppable } from './types';
 
-interface RecipeListProps {
+import { SortableRecipe } from './sortable-recipe';
+import { type MenuRecipeDroppable } from './types';
+
+type RecipeListProps = {
 	items: MenuRecipeDroppable[];
 	day: string;
 	handleRemoveItem: (recipeId: number) => void;
-}
+};
 
 const DroppableRecipeList = ({
 	items,

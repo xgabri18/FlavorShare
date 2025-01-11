@@ -1,9 +1,10 @@
 'use server';
 
+import { eq } from 'drizzle-orm';
+
 import { db } from '@/db';
 import { ingredients } from '@/db/schema/ingredient';
 import { usedIngredients } from '@/db/schema/usedIngredient';
-import { eq } from 'drizzle-orm';
 
 export type Ingredient = {
 	id: number;
@@ -15,8 +16,8 @@ export const fetchIngredientsForRecipe = async ({
 	recipeId
 }: {
 	recipeId: number;
-}): Promise<Ingredient[]> => {
-	const ingredientList = await db
+}): Promise<Ingredient[]> =>
+	db
 		.select({
 			id: ingredients.id,
 			name: ingredients.name,
@@ -26,6 +27,3 @@ export const fetchIngredientsForRecipe = async ({
 		.innerJoin(ingredients, eq(usedIngredients.ingredient_id, ingredients.id))
 		.where(eq(usedIngredients.recipe_id, recipeId))
 		.all();
-
-	return ingredientList;
-};

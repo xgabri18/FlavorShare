@@ -1,10 +1,12 @@
 'use server';
 
+import { eq } from 'drizzle-orm';
+
 import { db } from '@/db';
 import { comments } from '@/db/schema/comment';
 import { users } from '@/db/schema/user';
-import { eq } from 'drizzle-orm';
-import { JoinedUserComment, NewComment } from './types';
+
+import { type JoinedUserComment, type NewComment } from './types';
 
 export const addComment = async (newComment: NewComment) => {
 	try {
@@ -17,8 +19,8 @@ export const addComment = async (newComment: NewComment) => {
 
 export const fetchCommentsWithUser = async (
 	recipeId: number
-): Promise<JoinedUserComment[]> => {
-	const commentList = await db
+): Promise<JoinedUserComment[]> =>
+	db
 		.select({
 			id: comments.id,
 			recipe_id: comments.recipe_id,
@@ -32,9 +34,6 @@ export const fetchCommentsWithUser = async (
 		.leftJoin(users, eq(comments.user_id, users.id))
 		.where(eq(comments.recipe_id, recipeId))
 		.all();
-
-	return commentList;
-};
 
 export type EditComment = {
 	id: number;

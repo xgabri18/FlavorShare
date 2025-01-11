@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { Clock, Star } from 'lucide-react';
 import { eq } from 'drizzle-orm';
+import { notFound } from 'next/navigation';
 
 import { db } from '@/db';
 import { recipes } from '@/db/schema/recipe';
@@ -21,7 +22,6 @@ import EditRecipeButton from '@/components/editButton/edit-recipe-button';
 import BackButton from '@/components/back-button';
 import { fetchCategoriesForRecipe } from '@/server-actions/get-categories-for-recipe';
 import { fetchIngredientsForRecipe } from '@/server-actions/get-ingredients-for-recipe';
-import { notFound } from 'next/navigation';
 
 type RecipePageProps = {
 	params: Promise<{
@@ -122,7 +122,7 @@ const Page = async ({ params }: RecipePageProps) => {
 			{userId && (
 				<div className="mt-4 lg:mt-0">
 					<span className="text-sm">
-						Liked this recipe? Don't forget to rate it.
+						Liked this recipe? Don&#39;t forget to rate it.
 					</span>
 					<div className="flex content-center gap-5">
 						<InteractableRating recipeId={Number(id)} userId={userId} />
@@ -163,9 +163,7 @@ const Page = async ({ params }: RecipePageProps) => {
 				<CommentsParent
 					recipeId={Number(id)}
 					currentUser={
-						session === null ||
-						session.user === undefined ||
-						userId === undefined
+						session?.user === undefined || userId === undefined
 							? null
 							: {
 									name: session.user.name ?? '',

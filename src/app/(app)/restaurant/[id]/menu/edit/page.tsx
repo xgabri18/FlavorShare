@@ -1,9 +1,10 @@
 'use server';
+import { redirect } from 'next/navigation';
+
 import { auth } from '@/auth';
 import BackButton from '@/components/back-button';
 import MenuDndParent from '@/components/menu/menu-dnd-parent';
 import { isUserRestaurantOwner } from '@/server-actions/user';
-import { redirect } from 'next/navigation';
 
 type MenuPageProps = {
 	params: Promise<{
@@ -16,7 +17,7 @@ const MenuEditPage = async ({ params }: MenuPageProps) => {
 	const restaurantId = id;
 
 	const session = await auth();
-	if (!session?.user || !session.user.id) {
+	if (!session?.user?.id) {
 		redirect('/auth/signing');
 	} else {
 		const isUserOwner = await isUserRestaurantOwner(

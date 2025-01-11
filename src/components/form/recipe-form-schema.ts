@@ -19,7 +19,7 @@ export const recipeFormSchema = z.object({
 	visibility: visibilitySchema,
 	categories: z.array(categorySchema),
 	ingredients: z.array(ingredientSchema),
-	recipeSteps: z.string(),
+	recipeSteps: z.string()
 });
 
 export type Ingredient = z.infer<typeof ingredientSchema>;

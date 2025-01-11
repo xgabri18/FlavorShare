@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+
 import { AddCommentArea } from './add-comment-area';
 import { CommentArea } from './comment-area';
-import { CurrentUser, JoinedUserComment } from './types';
+import { type CurrentUser, type JoinedUserComment } from './types';
 import { UserImageBubble } from './user-image-bubble';
 
 type CommentsProps = {

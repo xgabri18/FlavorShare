@@ -1,14 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
 import { eq } from 'drizzle-orm';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 import { db } from '@/db';
 import { restaurants } from '@/db/schema/restaurant';
 import { users } from '@/db/schema/user';
 import { DeleteRestaurantButton } from '@/components/delete-restaurant-button';
-
-const WEEKLY_MENU_EDITOR_LINK = '/menu-editor';
+import { auth } from '@/auth';
 
 export type RestaurantProps = {
 	params: Promise<{
@@ -18,6 +17,7 @@ export type RestaurantProps = {
 
 const Page = async ({ params }: RestaurantProps) => {
 	const { id } = await params;
+	const session = await auth();
 	const restaurant = (
 		await db.select().from(restaurants).where(eq(restaurants.id, id))
 	).at(0);
@@ -31,6 +31,17 @@ const Page = async ({ params }: RestaurantProps) => {
 	const owner = allUsers.find(user => user.id === restaurant.user_id);
 	const chefs = allUsers.filter(user => user.restaurant_id === restaurant.id);
 
+	if (!session?.user?.id) {
+		redirect('/auth/signing');
+	} else {
+		const isOwner = session.user.id === owner?.id;
+		const isChef = chefs.some(chef => chef.id === session?.user?.id);
+
+		if (!isOwner && !isChef) {
+			redirect('/');
+		}
+	}
+
 	return (
 		<div className="flex justify-center">
 			<div className="flex-column">
@@ -38,15 +49,17 @@ const Page = async ({ params }: RestaurantProps) => {
 					{/* Restaurant Name */}
 					<h1 className="mb-4 text-4xl font-bold">{restaurant.name}</h1>
 				</div>
-				<div className="m-3 flex justify-center">
-					<Link
-						className="mx-5 rounded bg-green-500 px-4 py-2 text-white hover:bg-blue-600"
-						href={`/restaurant/${id}/update`}
-					>
-						Update
-					</Link>
-					<DeleteRestaurantButton restaurantId={id} />
-				</div>
+				{session.user.id === owner?.id && (
+					<div className="m-3 flex justify-center">
+						<Link
+							className="mx-5 rounded bg-green-500 px-4 py-2 text-white hover:bg-blue-600"
+							href={`/restaurant/${id}/update`}
+						>
+							Update
+						</Link>
+						<DeleteRestaurantButton restaurantId={id} />
+					</div>
+				)}
 				<div className="flex-column p-8 font-sans">
 					{/* Restaurant Details */}
 					<p className="mb-2 text-lg">
@@ -58,7 +71,7 @@ const Page = async ({ params }: RestaurantProps) => {
 
 					<div className="mb-6">
 						<Link
-							href={WEEKLY_MENU_EDITOR_LINK}
+							href={`/restaurant/${id}/menu/edit`}
 							className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
 						>
 							Edit Weekly Menu

@@ -5,6 +5,8 @@ import {
 	getRestaurantNameAction
 } from '@/components/menu/actions';
 import { StaticMenuList } from '@/components/menu/static-menu-list';
+import WeeklyMenuDownloadButton from '@/components/weeklyMenuPdf/weekly-menu-download-button';
+import WeeklyMenuWithIngredientsDownloadPdfButton from '@/components/weeklyMenuPdf/weekly-menu-with-ingredients-download-pdf-button';
 
 type MenuPageProps = {
 	params: Promise<{
@@ -29,6 +31,12 @@ const MenuPage = async ({ params }: MenuPageProps) => {
 			</div>
 			<div className="mt-10 px-14 text-center">
 				<StaticMenuList menu={menu} />
+			</div>
+			<div className="m-4 flex items-center gap-x-4">
+				<WeeklyMenuDownloadButton restaurantId={Number(restaurantId)} />
+				<WeeklyMenuWithIngredientsDownloadPdfButton
+					restaurantId={Number(restaurantId)}
+				/>
 			</div>
 		</div>
 	);

@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { MenuRecipe, MenuRecipeDroppable } from '../types';
+
+import { type MenuRecipe, type MenuRecipeDroppable } from '../types';
 
 const fetchRecipes = async (): Promise<MenuRecipe[]> => {
 	const response = await fetch('/api/recipe/list');
@@ -83,8 +84,8 @@ const updateMenu = async ({
 	}
 };
 
-export const useUploadMenuMutation = () => {
-	return useMutation({
+export const useUploadMenuMutation = () =>
+	useMutation({
 		mutationFn: updateMenu,
 		onSuccess: async () => {
 			console.log('Create Menu success.');
@@ -96,4 +97,3 @@ export const useUploadMenuMutation = () => {
 			toast.error('Failed to update menu');
 		}
 	});
-};

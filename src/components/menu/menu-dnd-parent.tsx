@@ -3,8 +3,8 @@
 import {
 	closestCorners,
 	DndContext,
-	DragEndEvent,
-	DragOverEvent,
+	type DragEndEvent,
+	type DragOverEvent,
 	PointerSensor,
 	TouchSensor,
 	useSensor,
@@ -13,6 +13,7 @@ import {
 import { arrayMove } from '@dnd-kit/sortable';
 import { Loader } from 'lucide-react';
 import { useEffect, useState } from 'react';
+
 import {
 	useMenuRestaurantQuery,
 	useRecipesQuery,
@@ -20,15 +21,16 @@ import {
 } from './hooks/recipe-api-hooks';
 import { MenuBuilder } from './menu-builder';
 import { RecipeListParent } from './recipe-list-parent';
-import { DayOfWeek, MenuRecipe, MenuRecipeDroppable } from './types';
+import {
+	type DayOfWeek,
+	type MenuRecipe,
+	type MenuRecipeDroppable
+} from './types';
 
 const MenuDndParent = ({ restaurant_id }: { restaurant_id: number }) => {
 	const { data: recipes, isLoading, error } = useRecipesQuery();
-	const {
-		data: menu,
-		isLoading: isMenuLoading,
-		error: menuError
-	} = useMenuRestaurantQuery(restaurant_id);
+	const { data: menu, isLoading: isMenuLoading } =
+		useMenuRestaurantQuery(restaurant_id);
 	const [allRecipes, setAllRecipes] = useState<MenuRecipeDroppable[]>([]);
 	useEffect(() => {
 		if (recipes && menu) {
@@ -163,7 +165,7 @@ const convertMenuRecipe = (
 ) => {
 	const rec = recipes.map<MenuRecipeDroppable>(recipe => ({
 		day: 'none',
-		recipe: recipe
+		recipe
 	}));
 
 	Object.keys(menu).forEach(day => {
