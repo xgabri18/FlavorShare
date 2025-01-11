@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 
 import {
@@ -15,7 +15,9 @@ type Props = {
 };
 
 const ChefManage = ({ userId, chef, restaurantId }: Props) => {
+	const [visibleChef, setVisibleChef] = useState(chef);
 	const handleChefToggle = async () => {
+		setVisibleChef(!visibleChef);
 		await toggleChef(userId, !chef);
 	};
 
@@ -32,8 +34,9 @@ const ChefManage = ({ userId, chef, restaurantId }: Props) => {
 				<input
 					id="chef-toggle"
 					type="checkbox"
-					checked={chef}
+					checked={visibleChef}
 					onChange={handleChefToggle}
+					disabled={restaurantId !== null}
 					className="h-4 w-4"
 				/>
 			</div>
