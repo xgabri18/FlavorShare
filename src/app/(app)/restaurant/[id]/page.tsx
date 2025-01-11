@@ -44,9 +44,8 @@ const Page = async ({ params }: RestaurantProps) => {
 
 	return (
 		<div className="flex justify-center">
-			<div className="flex-column">
+			<div className="mt-10 rounded-lg border border-black bg-white shadow-md">
 				<div className="flex justify-center pt-8 font-sans">
-					{/* Restaurant Name */}
 					<h1 className="mb-4 text-4xl font-bold">{restaurant.name}</h1>
 				</div>
 				{session.user.id === owner?.id && (
@@ -61,7 +60,6 @@ const Page = async ({ params }: RestaurantProps) => {
 					</div>
 				)}
 				<div className="flex-column p-8 font-sans">
-					{/* Restaurant Details */}
 					<p className="mb-2 text-lg">
 						<strong>Owner:</strong> {owner?.name}
 					</p>
