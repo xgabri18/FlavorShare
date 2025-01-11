@@ -1,7 +1,7 @@
 'use server';
 
 import Image from 'next/image';
-import { ArrowLeft, Clock, Star } from 'lucide-react';
+import { Clock, Star } from 'lucide-react';
 import { eq } from 'drizzle-orm';
 
 import { db } from '@/db';
@@ -14,7 +14,7 @@ import {
 	type FavoriteRecipe,
 	favoriteRecipes
 } from '@/db/schema/favoriteRecipe';
-import { CommentsParent } from '@/components/ui/complex/comments/comments-parent-component';
+import { CommentsParent } from '@/components/comments/comments-parent-component';
 import DeleteRecipeButton from '@/components/deleteRecipeButton/delete-recipe-button';
 import { SmallTile } from '@/components/ui/tiles/small-tile';
 import EditRecipeButton from '@/components/editButton/edit-recipe-button';
@@ -155,7 +155,7 @@ const Page = async ({ params }: RecipePageProps) => {
 				</div>
 				<div>
 					<h2 className="text-xl font-medium">Instructions</h2>
-					<span>{singleRecipe.steps}</span>
+					<p className="whitespace-pre-wrap">{singleRecipe.steps}</p>
 				</div>
 			</div>
 

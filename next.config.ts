@@ -6,6 +6,13 @@ const nextConfig: NextConfig = {
 		remotePatterns: [
 			{
 				protocol: 'https',
+				hostname: 'ntdoas63ys.ufs.sh',
+				port: '',
+				pathname: '/f/**',
+				search: ''
+			},
+			{
+				protocol: 'https',
 				hostname: 'avatars.githubusercontent.com',
 				port: '',
 				pathname: '/**'
@@ -14,7 +21,7 @@ const nextConfig: NextConfig = {
 				protocol: 'https',
 				hostname: 'utfs.io',
 				port: '',
-				pathname: '/f/**',
+				pathname: '/**',
 				search: ''
 			}
 		]
