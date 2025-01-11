@@ -74,7 +74,7 @@ const RestaurantFormComponent = ({ ...props }: RestaurantFormProps) => {
 				type="button"
 			>
 				<ArrowLeft />
-				back
+				Back
 			</Button>
 			<form
 				onSubmit={form.handleSubmit(

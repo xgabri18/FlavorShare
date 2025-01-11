@@ -86,7 +86,7 @@ const DynamicForm = ({ ...props }: DynamicFormProps) => {
 					className="m-4 w-24 rounded-xl bg-stone-400 text-xl hover:bg-blue-600"
 				>
 					<ArrowLeft />
-					back
+					Back
 				</Button>
 				<h2 className="p-5 text-4xl">Add recipe</h2>
 				<div className="flex-column w-full md:flex">
