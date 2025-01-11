@@ -3,7 +3,8 @@ import './globals.css';
 import React from 'react';
 
 import { Providers } from '@/components/providers';
-import NavigationBar from '@/components/navigation-bar';
+import { NavigationBar } from '@/components/navigation-bar';
+import { auth } from '@/auth';
 
 export const metadata: Metadata = {
 	title: 'FlavorShare',
@@ -11,17 +12,24 @@ export const metadata: Metadata = {
 		'Application which connect all the people who share their love for the cooking and good food'
 };
 
-export default ({
+const RootLayout = async ({
 	children
 }: Readonly<{
 	children: React.ReactNode;
-}>) => (
-	<html lang="en">
-		<body>
-			<Providers>
-				<NavigationBar />
-				{children}
-			</Providers>
-		</body>
-	</html>
-);
+}>) => {
+	const session = await auth();
+
+	return (
+		<html lang="en">
+			<body>
+				<Providers>
+					{/* Pass the session to NavigationBar */}
+					<NavigationBar session={session} />
+					{children}
+				</Providers>
+			</body>
+		</html>
+	);
+};
+
+export default RootLayout;
