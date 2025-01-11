@@ -3,18 +3,18 @@ import { toast } from 'sonner';
 
 import { type MenuRecipe, type MenuRecipeDroppable } from '../types';
 
-const fetchRecipes = async (): Promise<MenuRecipe[]> => {
-	const response = await fetch('/api/recipe/list');
+const fetchRecipes = async (userId: string): Promise<MenuRecipe[]> => {
+	const response = await fetch(`/api/recipe/list?user_id=${userId}`);
 	if (!response.ok) {
 		throw new Error('Failed to fetch recipes');
 	}
 	return response.json();
 };
 
-export const useRecipesQuery = () =>
+export const useRecipesQuery = (userId: string) =>
 	useQuery({
 		queryKey: ['allRecipes'],
-		queryFn: () => fetchRecipes()
+		queryFn: () => fetchRecipes(userId)
 	});
 
 const fetchMenuForRestaurant = async (

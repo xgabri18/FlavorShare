@@ -6,5 +6,6 @@ import { updateRestaurant } from '@/server-actions/update-restaurant';
 
 export const useUpdateRestaurantMutation = () =>
 	useMutation({
-		mutationFn: updateRestaurant
+		mutationFn: updateRestaurant,
+		onError: () => {}
 	});

@@ -27,8 +27,14 @@ import {
 	type MenuRecipeDroppable
 } from './types';
 
-const MenuDndParent = ({ restaurant_id }: { restaurant_id: number }) => {
-	const { data: recipes, isLoading } = useRecipesQuery();
+const MenuDndParent = ({
+	restaurant_id,
+	user_id
+}: {
+	restaurant_id: number;
+	user_id: string;
+}) => {
+	const { data: recipes, isLoading } = useRecipesQuery(user_id);
 	const { data: menu, isLoading: isMenuLoading } =
 		useMenuRestaurantQuery(restaurant_id);
 	const [allRecipes, setAllRecipes] = useState<MenuRecipeDroppable[]>([]);
@@ -175,5 +181,15 @@ const convertMenuRecipe = (
 		});
 	});
 
-	return rec;
+	const noneDayRecipes = rec.filter(r => r.day === 'none');
+	const orderedRecipes: MenuRecipeDroppable[] = [];
+	Object.keys(menu).forEach(day => {
+		menu[day].forEach(recipe => {
+			const index = rec.findIndex(r => r.recipe.recipe_id === recipe.recipe_id);
+			if (index !== -1) {
+				orderedRecipes.push(rec[index]);
+			}
+		});
+	});
+	return [...orderedRecipes, ...noneDayRecipes];
 };

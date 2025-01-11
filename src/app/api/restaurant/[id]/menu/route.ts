@@ -1,4 +1,4 @@
-import { and, eq } from 'drizzle-orm';
+import { and, asc, eq } from 'drizzle-orm';
 import { type NextRequest } from 'next/server';
 import { z, ZodError } from 'zod';
 
@@ -49,7 +49,7 @@ export const GET = async (
 						eq(restaurantRecipes.day_of_week, day.toLowerCase())
 					)
 				)
-				.orderBy(restaurantRecipes.id) // will this work for the ordering?
+				.orderBy(asc(restaurantRecipes.id)) // will this work for the ordering?
 				.all();
 
 			recipesByDay[day] = recipesList;

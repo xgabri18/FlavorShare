@@ -15,7 +15,7 @@ const BackButton = () => {
 			className="mb-4 w-24 rounded-xl bg-stone-400 text-xl hover:bg-blue-600"
 		>
 			<ArrowLeft />
-			back
+			Back
 		</Button>
 	);
 };
