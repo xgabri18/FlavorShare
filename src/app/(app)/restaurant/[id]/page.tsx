@@ -32,17 +32,22 @@ const Page = async ({ params }: RestaurantProps) => {
 	const chefs = allUsers.filter(user => user.restaurant_id === restaurant.id);
 
 	return (
-		<div className='flex justify-center'>
-			<div className='flex-column'>
-				<div className="pt-8 font-sans flex justify-center">
+		<div className="flex justify-center">
+			<div className="flex-column">
+				<div className="flex justify-center pt-8 font-sans">
 					{/* Restaurant Name */}
 					<h1 className="mb-4 text-4xl font-bold">{restaurant.name}</h1>
 				</div>
-				<div className='m-3 flex justify-center'>
-					<Link className="mx-5 rounded bg-green-500 px-4 py-2 text-white hover:bg-blue-600" href={`/restaurant/${id}/update`}>Update</Link>
-					<DeleteRestaurantButton restaurantId={id}/>
+				<div className="m-3 flex justify-center">
+					<Link
+						className="mx-5 rounded bg-green-500 px-4 py-2 text-white hover:bg-blue-600"
+						href={`/restaurant/${id}/update`}
+					>
+						Update
+					</Link>
+					<DeleteRestaurantButton restaurantId={id} />
 				</div>
-				<div className="p-8 font-sans flex-column">
+				<div className="flex-column p-8 font-sans">
 					{/* Restaurant Details */}
 					<p className="mb-2 text-lg">
 						<strong>Owner:</strong> {owner?.name}
