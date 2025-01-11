@@ -37,7 +37,7 @@ export const InteractableRating = ({
 	}, [recipeId, userId]);
 
 	const handleRatingChange = async (
-		event: React.SyntheticEvent,
+		_: React.SyntheticEvent,
 		newValue: number | null
 	) => {
 		setValue(newValue);
@@ -71,7 +71,7 @@ export const InteractableRating = ({
 				defaultValue={0}
 				size="large"
 				onChange={handleRatingChange}
-				onChangeActive={(event, newHover) => {
+				onChangeActive={(_, newHover) => {
 					setHover(newHover);
 				}}
 			/>

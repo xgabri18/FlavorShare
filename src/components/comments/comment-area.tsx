@@ -1,9 +1,9 @@
 'use client';
 
-import { Dispatch, SetStateAction, useState } from 'react';
+import { type Dispatch, type SetStateAction, useState } from 'react';
 
 import { deleteComment, editComment } from './actions';
-import { JoinedUserComment } from './types';
+import { type JoinedUserComment } from './types';
 
 export const CommentArea = ({
 	currentUserId,

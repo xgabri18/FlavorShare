@@ -38,7 +38,7 @@ const MenuEditPage = async ({ params }: MenuPageProps) => {
 				<h1 className="mt-10 text-3xl font-semibold md:mt-0">Menu editor</h1>
 				<p className="mx-5 text-center text-gray-400 md:m-0">
 					To add recipes to the menu, just drag and drop them from the right
-					column to the left.
+					column to the left. Press Submit to save changes.
 				</p>
 			</div>
 			<div className="mt-10 xl:px-40 2xl:px-60">
