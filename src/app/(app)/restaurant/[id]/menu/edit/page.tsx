@@ -31,7 +31,7 @@ const MenuEditPage = async ({ params }: MenuPageProps) => {
 
 	return (
 		<div className="flex flex-1 flex-col pt-10 md:p-20">
-			<div className="absolute left-2 top-14 text-xl md:left-5 md:top-20">
+			<div className="absolute left-2 top-20 text-xl md:left-5 md:top-28">
 				<BackButton />
 			</div>
 			<div className="flex flex-col items-center justify-center">
@@ -42,7 +42,10 @@ const MenuEditPage = async ({ params }: MenuPageProps) => {
 				</p>
 			</div>
 			<div className="mt-10 xl:px-40 2xl:px-60">
-				<MenuDndParent restaurant_id={Number(restaurantId)} />
+				<MenuDndParent
+					restaurant_id={Number(restaurantId)}
+					user_id={session.user.id}
+				/>
 			</div>
 		</div>
 	);
