@@ -1,13 +1,13 @@
 'use client';
-import { useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 
 const BackButton = () => {
 	const router = useRouter();
 	const onClick = () => {
-		router.push('/');
+		router.back();
 	};
 	return (
 		<Button

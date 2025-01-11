@@ -1,13 +1,12 @@
-import React from 'react';
-import Link from 'next/link';
 import { eq } from 'drizzle-orm';
+import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 
+import { auth } from '@/auth';
+import { DeleteRestaurantButton } from '@/components/delete-restaurant-button';
 import { db } from '@/db';
 import { restaurants } from '@/db/schema/restaurant';
 import { users } from '@/db/schema/user';
-import { DeleteRestaurantButton } from '@/components/delete-restaurant-button';
-import { auth } from '@/auth';
 
 export type RestaurantProps = {
 	params: Promise<{
@@ -41,6 +40,7 @@ const Page = async ({ params }: RestaurantProps) => {
 			redirect('/');
 		}
 	}
+	const isOwner = session.user.id === owner?.id;
 
 	return (
 		<div className="flex justify-center">
@@ -69,13 +69,21 @@ const Page = async ({ params }: RestaurantProps) => {
 						<strong>Location:</strong> {restaurant.location}
 					</p>
 
-					<div className="mb-6">
+					<div className="mb-6 flex w-1/2 flex-col space-y-4 md:w-full md:flex-none md:flex-row md:space-x-4 md:space-y-0">
 						<Link
-							href={`/restaurant/${id}/menu/edit`}
-							className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+							href={`/restaurant/${id}/menu`}
+							className="rounded bg-blue-700 px-4 py-2 text-white hover:bg-blue-400"
 						>
-							Edit Weekly Menu
+							View Weekly Menu
 						</Link>
+						{isOwner && (
+							<Link
+								href={`/restaurant/${id}/menu/edit`}
+								className="rounded bg-blue-700 px-4 py-2 text-white hover:bg-blue-400"
+							>
+								Edit Weekly Menu
+							</Link>
+						)}
 					</div>
 
 					<div>

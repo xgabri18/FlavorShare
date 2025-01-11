@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
 import { pdf } from '@react-pdf/renderer';
+import { useState } from 'react';
 
 import { fetchWeeklyMenuWithIngredients } from '@/components/weeklyMenuPdf/actions';
 
@@ -35,7 +35,7 @@ const WeeklyMenuWithIngredientsDownloadPdfButton = ({
 	return (
 		<button
 			onClick={handleDownloadClick}
-			className="rounded bg-blue-500 p-2 text-white"
+			className="rounded bg-blue-700 p-2 text-white hover:bg-blue-400"
 			disabled={loading}
 		>
 			{loading ? 'Generating PDF...' : 'Download Shop List'}

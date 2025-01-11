@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
 import { pdf } from '@react-pdf/renderer';
+import { useState } from 'react';
 
 import WeeklyMenuPDF from '@/components/weeklyMenuPdf/WeeklyMenuPDF';
 import { fetchWeeklyMenuData } from '@/components/weeklyMenuPdf/actions';
@@ -34,7 +34,7 @@ const PdfDownloadButton = ({ restaurantId }: Props) => {
 	return (
 		<button
 			onClick={handleDownloadClick}
-			className="rounded bg-blue-500 p-2 text-white"
+			className="rounded bg-blue-700 p-2 text-white hover:bg-blue-400"
 			disabled={loading}
 		>
 			{loading ? 'Generating PDF...' : 'Download Weekly Menu'}

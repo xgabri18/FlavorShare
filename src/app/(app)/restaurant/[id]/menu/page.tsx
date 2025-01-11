@@ -27,7 +27,9 @@ const MenuPage = async ({ params }: MenuPageProps) => {
 			</div>
 
 			<div className="flex flex-col items-center justify-center">
-				<h1 className="text-3xl font-semibold">Menu for {restaurantMenu}</h1>
+				<h1 className="break-words text-center text-3xl font-semibold">
+					Menu for {restaurantMenu}
+				</h1>
 			</div>
 			<div className="mt-10 px-14 text-center">
 				<StaticMenuList menu={menu} />

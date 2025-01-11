@@ -28,7 +28,7 @@ import {
 } from './types';
 
 const MenuDndParent = ({ restaurant_id }: { restaurant_id: number }) => {
-	const { data: recipes, isLoading, error } = useRecipesQuery();
+	const { data: recipes, isLoading } = useRecipesQuery();
 	const { data: menu, isLoading: isMenuLoading } =
 		useMenuRestaurantQuery(restaurant_id);
 	const [allRecipes, setAllRecipes] = useState<MenuRecipeDroppable[]>([]);
