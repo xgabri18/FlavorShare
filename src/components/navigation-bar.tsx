@@ -18,9 +18,9 @@ export const NavigationBar = ({ session }: NavigationBarProps) => {
 	const toggleMenu = () => setMenuOpen(!isMenuOpen);
 
 	return (
-		<header className="sticky top-0 z-20 w-full bg-stone-400 p-6">
-			<div className="flex w-full items-center justify-between">
-				<nav className="hidden w-full items-center justify-between gap-4 sm:flex sm:gap-8">
+		<header className="sticky top-0 z-20 w-full bg-stone-400 p-4 md:h-10">
+			<div className="flex h-full w-full items-center justify-between">
+				<nav className="hidden w-full items-center justify-between gap-4 sm:flex sm:gap-6">
 					{navigationOptions.map((item, i) => (
 						<Link
 							key={i}
@@ -33,17 +33,17 @@ export const NavigationBar = ({ session }: NavigationBarProps) => {
 							</MenuOption>
 						</Link>
 					))}
-					<LogInOut session={session} />
+					<LogInOut session={session}/>
 				</nav>
 				<button
 					className="ml-auto block text-black focus:outline-none sm:hidden"
 					onClick={toggleMenu}
 				>
-					<Menu className="h-6 w-6" />
+					<Menu className="h-5 w-5"/>
 				</button>
 			</div>
 			{isMenuOpen && (
-				<nav className="mt-4 flex flex-col items-start gap-4 sm:hidden">
+				<nav className="mt-3 flex flex-col items-start gap-3 sm:hidden">
 					{navigationOptions.map((item, i) => (
 						<Link
 							key={i}
@@ -57,7 +57,7 @@ export const NavigationBar = ({ session }: NavigationBarProps) => {
 							</MenuOption>
 						</Link>
 					))}
-					<LogInOut session={session} />
+					<LogInOut session={session}/>
 				</nav>
 			)}
 		</header>
