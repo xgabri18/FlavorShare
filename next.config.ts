@@ -23,7 +23,14 @@ const nextConfig: NextConfig = {
 				port: '',
 				pathname: '/f/**',
 				search: ''
-			}
+			},
+			{
+                protocol: 'https',
+                hostname: 'ntdoas63ys.ufs.sh',
+                port: '',
+                pathname: '/f/**',
+                search: ''
+            }
 		]
 	}
 };
