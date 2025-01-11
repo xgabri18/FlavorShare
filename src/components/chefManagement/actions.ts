@@ -1,14 +1,16 @@
 'use server';
 import { eq } from 'drizzle-orm';
+import { revalidatePath } from 'next/cache';
 
 import { db } from '@/db';
 import { users } from '@/db/schema/user';
 
 export const toggleChef = async (userId: string, chef: boolean) => {
+	revalidatePath('/user');
 	try {
 		const updatedUser = await db
 			.update(users)
-			.set({ chef: !chef })
+			.set({ chef })
 			.where(eq(users.id, userId))
 			.returning();
 
@@ -24,6 +26,7 @@ export const toggleChef = async (userId: string, chef: boolean) => {
 };
 
 export const leaveRestaurant = async (userId: string) => {
+	revalidatePath('/user');
 	try {
 		const updatedUser = await db
 			.update(users)
